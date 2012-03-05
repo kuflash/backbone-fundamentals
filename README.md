@@ -80,7 +80,7 @@
 
 ##MVC
 
-MVC (Model-View-Controller) - это шаблон архитектурного проектирвоания, который способствует более совершенной организации приложения через разделение ответственностей между компонентами. Шаблон обеспечивает отделение бизнес-логики (Модель) от пользовательского интерфейса (Представление) и использованием третьего компонента (Контроллер), который традиционно представляет собой управление логикой пользовательских действий и координирования моделей и представлений. Первоначально шаблон был разработан [Трюгве Реенскаугом](http://en.wikipedia.org/wiki/Trygve_Reenskaug), работавшим над языком программирования Smalltalk-80 (1979). Тогда шаблон был изначально назван Model-View-Controller-редактор. MVC был подробно описан в [“Шаблоны проектирования: Элементы повтороно используемого объектно-ориентирвоанного ПО”](http://www.amazon.co.uk/Design-patterns-elements-reusable-object-oriented/dp/0201633612) (Часто называемой "GoF" или “Gang of Four”) в 1994 году, что сыграло свою роль в популяризации его использования.
+MVC (Model-View-Controller) - это шаблон архитектурного проектирвоания, который способствует более совершенной организации приложения через разделение ответственностей между компонентами. Шаблон обеспечивает отделение бизнес-логики (Модель) от пользовательского интерфейса (Представление) и использованием третьего компонента (Контроллер), который традиционно представляет собой управление логикой пользовательских действий и координирования моделей и представлений. Первоначально шаблон был разработан [Трюгве Реенскаугом](http://en.wikipedia.org/wiki/Trygve_Reenskaug), работавшим над языком программирования Smalltalk-80 (1979). Тогда шаблон был изначально назван Model-View-Controller-Editor. MVC был подробно описан в [“Шаблоны проектирования: Элементы повтороно используемого объектно-ориентирвоанного ПО”](http://www.amazon.co.uk/Design-patterns-elements-reusable-object-oriented/dp/0201633612) (Часто называемой "GoF" или “Gang of Four”) в 1994 году, что сыграло свою роль в популяризации его использования.
 
 
 ###MVC в Smalltalk-80
@@ -188,9 +188,9 @@ var buildPhotoView = function( photoModel, photoController ){
      base.appendChild(photoEl);
 
      var render= function(){
-        // We use a templating library such as Underscore
-        // templating which generates the HTML for our 
-        // photo entry
+        // Мы используем библиотеку шаблонизации, такую как Underscore
+        // шаблонизатор, который генерирует HTML для нашей
+        // записи фотографии
         photoEl.innerHTML = _.template('photoTemplate', {src: photoModel.getSrc()});
      }
 
@@ -218,15 +218,15 @@ var buildPhotoView = function( photoModel, photoController ){
 ```
 
 
-**Templating**
+**Шаблонизация**
 
-In the context of JavaScript frameworks that support MVC/MV*, it is worth looking more closely at JavaScript templating and its relationship to Views.
+В контекте JavaScript-фреймворков, которые поддерживают MVC/MV*, стоит обратить более пристальное внимание на JavaScript шаблонизацию и ее отношении к Представлениям.
 
-It has long been considered bad practice (and computationally expensive) to manually create large blocks of HTML markup in-memory through string concatenation. Developers using this technique often find themselves iterating through their data, wrapping it in nested divs and using outdated techniques such as ```document.write``` to inject the 'template' into the DOM. This approach often means keeping scripted markup inline with standard markup, which can quickly become difficult to read and maintain, especially when building large applications.
+Уже давно считается дурным тоном (и чрезмерной вычислительной нагрузкой) создание больших блоков HTML разметки вручную в памяти через каскадное соединение строковых данных. Разработчики, использующие такую технику часто вынуждены пропускат mcdjb данные через циклы, оборачивать их во вложенные div'ы и использовать устаревшую технику для вставки "шаблонов" в DOM, такую как ```document.write```. Такой подход означает совмещение сценариев с обычной разметкой в общем коде, что быстро превращает сценарии в трудно читаемые и трудно поддерживаемые, особенно при создании больших приложений.
     
-JavaScript templating libraries (such as Handlebars.js or Mustache) are often used to define templates for views as HTML markup containing template variables. These template blocks can be either stored externally or within script tags with a custom type (e.g 'text/template'). Variables are deliminated using a variable syntax (e.g {{name}}). Javascript template libraries typically accept data in JSON, and the grunt work of populating templates with data is taken care of by the framework itself. This has a several benefits, particularly when opting to store templates externally as this can let applications load templates dynamically on an as-needed basis. 
+Библиотеки JavaScript шаблонизаторов (такие как Handlebars.js или Mustache.js) часто используются для определения шаблонов HTML разметки в представлениях в виде переменных, содержащих шаблоны. Эти блоки шаблонов могут храниться как вне скрипта, так и в самом скрипте в виде специального типа данных (например, "text/template"). Переменные указываются с помощью специального синтакциса (например, {{name}}). Библиотеки JavaScript шаболнизации как правило принимают данные в JSON формате, а уже черновую работу по заполнению шаблона данными выполняет сам шаблонный фреймворк. Такой подход имеет ряд преимуществ, особенно когда отдается предпочтение внешнему хранению шаблонов, поскольку это позволяет загружать их динамически по мере необходимости.
 
-Let's compare two examples of HTML templates. One is implemented using the popular Handlebars.js library, and the other uses Underscore's 'microtemplates'.  
+Давайте сравним два примера HTML шаблонов. Один из них использует популярную библиотеку Handlebars.js, в то время как второй реализован с использованием библиотеки "микрошаблонов" Underscore.js.
 
 **Handlebars.js:**
 
@@ -240,7 +240,7 @@ Let's compare two examples of HTML templates. One is implemented using the popul
 </li>
 ```
 
-**Underscore.js Microtemplates:**
+**Underscore.js микрошаблоны:**
 
 ```html
 <li class="photo">
@@ -252,18 +252,18 @@ Let's compare two examples of HTML templates. One is implemented using the popul
 </li>
 ```
 
-You may also use double curly brackets (i.e ```{{}}```) (or any other tag you feel comfortable with) in Microtemplates. In the case of curly brackets, this can be done by setting the Underscore ```templateSettings``` attribute as follows:
+В Микрошаблонах вы можете также использовать и двойные фигурные скобки (то есть ```{{}}```) (или любой другой способ обозначения переменных в шаблонах, который представляется вам наиболее комфортным). В случае с фигурными скобками, нужно всего навсего указать в настройках ```templateSettings``` Underscore атрибут следующим образом:
 
 ```javascript
 _.templateSettings = { interpolate : /\{\{(.+?)\}\}/g };
 ```
 
-**A note on navigation and state**
+**Заметка о навигации и состояниях**
 
-It is also worth noting that in classical web development, navigating between independent views required the use of a page refresh. In single-page JavaScript applications, however, once data is fetched from a server via Ajax, it can be dynamically rendered in a new view within the same page. Since this doesn't automatically update the URL, the role of navigation thus falls to a "router", which assists in managing application state (e.g allowing users to bookmark a particular view they have navigated to). As routers are however neither a part of MVC nor present in every MVC-like framework, I will not be going into them in greater detail in this section.
+Стоит также отметить, что в класической веб-разработке навигация между независимыми представлениями требует перезагрузки страницы. В одностраничных JavaScript приложениях загрузив единожды данные с сервера посредством Ajax, они могут динамически визуализирвоаться в новом представлении на той же странице. Так как это не приводит к обновлению URL, то роль навигации, что логично, выполняет "маршрутизатор", который помогает управлять состояниями приложения (например позволяет пользователям добавляеть в закладки страницу с конкретным представлением, к которому они перешли). Маршрутизаторы, тем не менее, не присутсвуют в каждом MVC-фреймворке, однако я не буду останавливаться на них подробно в этом разделе.
 
 
-###Controllers
+###Контроллеры
 
 Controllers are an intermediary between models and views which are classically responsible for two tasks: they both update the view when the model changes and update the model when the user manipulates the view. 
    
