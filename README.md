@@ -49,15 +49,15 @@
 * ####[Resources](#resources)
 
 
-##<a name="introduction">Introduction</a>
+##<a name="introduction">Введение</a>
 
-As JavaScript developers, we are at an interesting point in time where not only do we have mature solutions to help organize the JavaScript powering our applications based on a separation of concerns, but developers looking to build non-trivial projects are almost spoiled for choice for frameworks that can help structure their applications. 
+Как JavaScript-разработчики, мы живем в интересное время, когда не только у нас имеются зрелые решения, помогающие организовать и усилить JavaScript-приложения, базирующиеся на разделении задач. Разработчики, работающие над нетривиальными проектами, имеют возможность выбора фреймворка, который поможет им структурировать их приложения.
 
-Maturity in software (framework) development isn't simply about how long a framework has been around. It's about how solid the framework is and more importantly how well it's evolved to fill its role. Has it become more effective at solving common problems? Does it continue to improve as developers build larger and more complex applications with it?  
+Maturity in software (framework) development isn't simply about how long a framework has been around. It's about how solid the framework is and more importantly how well it's evolved to fill its role. Has it become more effective at solving common problems? Does it continue to improve as developers build larger and more complex applications with it?
 
-In this book, I will be covering the popular Backbone.js, which I consider the best of the current family of JavaScript architectural frameworks.
+В этой книге я расскажу о популярном Backbone.js, который я считаю лучшим из существующего семейства архитектурных JavaScript-фреймворков.
 
-Topics will include MVC theory and how to build applications using Backbone's models, views, collections and routers. I'll also be taking you through advanced topics like modular development with Backbone.js and AMD (via RequireJS), how to build applications using modern software stacks (like Node and Express), how to solve the routing problems with Backbone and jQuery Mobile, tips about scaffolding tools, and a lot more.
+Темы будут включать в себя MVC теорию, а так же принципы построения приложений с использованием моделей, представлений, коллекций и маршрутизаторов из Backbone. Я также проведу вас по сложным темам, таким как: модульная разработка с использованием Backbone.js и AMD (RequireJS), построение приложений с использованием современног опрограммного стека(Node.js  и Express), разрешение проблем маршрутизации Backbone и jQuery Mobile, советы по инструментам скафолдинга и многео другое.
 
 If this is your first time looking at Backbone.js and you're still unsure whether or not to give it a try, why not take a look at how [a Todo application](http://github.com/addyosmani/todomvc) can be implemented in Backbone and several other popular Javascript frameworks before reading further?
 
