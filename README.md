@@ -83,24 +83,23 @@
 MVC (Model-View-Controller) - это шаблон архитектурного проектирвоания, который способствует более совершенной организации приложения через разделение ответственностей между компонентами. Шаблон обеспечивает отделение бизнес-логики (Модель) от пользовательского интерфейса (Представление) и использованием третьего компонента (Контроллер), который традиционно представляет собой управление логикой пользовательских действий и координирования моделей и представлений. Первоначально шаблон был разработан [Трюгве Реенскаугом](http://en.wikipedia.org/wiki/Trygve_Reenskaug), работавшим над языком программирования Smalltalk-80 (1979). Тогда шаблон был изначально назван Model-View-Controller-редактор. MVC был подробно описан в [“Шаблоны проектирования: Элементы повтороно используемого объектно-ориентирвоанного ПО”](http://www.amazon.co.uk/Design-patterns-elements-reusable-object-oriented/dp/0201633612) (Часто называемой "GoF" или “Gang of Four”) в 1994 году, что сыграло свою роль в популяризации его использования.
 
 
-###Smalltalk-80 MVC
+###MVC в Smalltalk-80
 
-It's important to understand what the original MVC pattern was aiming to solve as it has changed quite heavily since the days of its origin. Back in the 70's, graphical user-interfaces were far and few between. An approach known as [Separated Presentation](http://martinfowler.com/eaaDev/uiArchs.html) began to be used as a means to make a clear division between domain objects which modeled concepts in the real world (e.g a photo, a person) and the presentation objects which were rendered to the user's screen.
+Важно понять, какие проблемы стремился решить оригинальный шаблон MVC и на сколько сильно он изменился с момента его возникновения. В 70-х годах до графического пользовательского интерфейса было еще далеко. Подход, известный как [Раздельные презентации](http://martinfowler.com/eaaDev/uiArchs.html) стал использоваться, как средство прозрачного разделения объектных областей, которые моделируют сущьности в реальном мире (например, изображение, человек и др.), и презентационные объекты, которые визуализируются на экран пользователя. <i>(Этот абзац возможно переведен криво - Прим.Пер.)</i>
 
-The Smalltalk-80 implementation of MVC took this concept further and had an objective of separating out the application logic from the user interface. The idea was that decoupling these parts of the application would also allow the reuse of models for other interfaces in the application. There are some interesting points worth noting about Smalltalk-80's MVC architecture:
+Реализация MVC в Smalltalk-80 не остановилась на этой концепции и пошла дальше: была поставлена цель выделения логики приложения из пользовательского интерфейса. Идея заключалась в том, что разделение этих частей приложения позволит повторно использовать модели для других элементов интерфейса в приложении. Есть несколько интересных моментов, которые стоит отметить в архитектуре MVC из Smalltalk-80:
 
-* A Domain element was known as a Model and were ignorant of the user-interface (Views and Controllers)
-* Presentation was taken care of by the View and the Controller, but there wasn't just a single view and controller. A View-Controller pair was required for each element being displayed on the screen and so there was no true separation between them
-* The Controller's role in this pair was handling user input (such as key-presses and click events), doing something sensible with them. 
-* The Observer pattern was relied upon for updating the View whenever the Model changed
+* Элемент Домена, известный как Модель, ничего не знал о пользовательском интерфейсе (Представления и Контроллеры)
+* Презентация заботилась о Представлениях и Контроллерах, однако не являлась единым представлением и контроллером. Пара Представление-Контроллер была необходима для каждого отображаемого элемента на экране, поэтому между ними не было истинного разделения
+* Ролью Контроллера в этой паре была обработка пользовательского ввода (например, нажатие клавиши или событие нажатия клика) и последующее какое-либо разумное действие.
+* Шаблон "Наблюдатель" основывался на обнавлении Представления всякий раз, как изменялась Модель.
 
-Developers are sometimes surprised when they learn that the Observer pattern (nowadays commonly implemented as a Publish/Subscribe system) was included as a part of MVC's architecture decades ago. In Smalltalk-80's MVC, the View and Controller both observe the Model: anytime the Model changes, the Views react. A simple example of this is an application backed by stock market data - for the application to show real-time information, any change to the data in its Models should result in the View being refreshed instantly. 
+Разработчики иногда удивляются, узнав, что шаблон "Наблюдатель" (в настоящее время известный как система Издатель-Подписчик) был включен в MVC-архитектуру десятилетия назад. В MVC языка Smalltalk-80 Представление и Контроллер оба наблюдали за Моделью: каждый раз, когда изменялась Модель, Представление на это реагировало. Простой пример такой реализации лежит в основе программ для фондового рынка - для отображения информации в реальном времени любое изменение данных в Модели приложения должно приводить к моментальному обновлению Представления.
 
-Martin Fowler has done an excellent job of writing about the [origins](http://martinfowler.com/eaaDev/uiArchs.html) of MVC over the years and if you are interested in further historical information about Smalltalk-80's MVC, I recommend reading his work. 
+Мартин Фаулер провел отличную работу по описанию [оригинального](http://martinfowler.com/eaaDev/uiArchs.html) шаблона MVC на протяжении многих лет. И если вы заинтересованы в дальнейшем изучении истории MVC в Smalltalk-80, я рекомендую почитать его работу.
 
 
-
-##MVC As We Know It
+##MVC как мы его знаем
 
 We've reviewed the 70's, but let us now return to the here and now. The MVC pattern has been applied to a diverse range of programming languages. For example, the popular Ruby on Rails is an implementation of a web application framework based on MVC for the Ruby language. JavaScript now has a number of MVC frameworks, including Ember.js, JavaScriptMVC, and of course Backbone.js. Given the importance of avoiding "spaghetti" code, a term which describes code that is very difficult to read or maintain due to its lack of structure, let's look at what the MVC pattern enables the Javascript developer to do.
 
