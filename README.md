@@ -1,28 +1,30 @@
-#Developing Backbone.js Applications
-A book on Backbone.js targeted at beginners and advanced users alike
+#Разработка Backbone.js Приложений
+Это книга о Backbone.js предназначена для новичков и опытных пользователей.
 
-This is the home of 'Developing Backbone.js Applications', an (in-progress) book about the Backbone.js framework for structuring JavaScript applications. It is released under a [CC](http://creativecommons.org/licenses/by-nc-sa/3.0/)-license.
+Главная ветка книги 'Developing Backbone.js Applications', которая описывает работу с Backbone.js-фреймворком, предназначенным для структурирования JavaScript-приложений. Выпущена под лицензией [CC](http://creativecommons.org/licenses/by-nc-sa/3.0/).
 
-I am quite pleased that this book will be out in physical form in a few months time via [O'Reilly Media](http://oreilly.com). Readers will have the option of purchasing the latest version in either print or a number of digital formats then or can grab a copy for free from this repository.
+<i>(Данный форк является переводом на русский язык. Ввиду отсуствия других переводов, можно считать этот перевод официальным - Прим. Переводчика)</i>
 
-Corrections to existing material are always welcome and I hope that together we can provide the community with an up-to-date resource that is of help.
+Я очень рад, что эта книга через несколько месяцев будет напечатана на бумаге под редакцией [O'Reilly Media](http://oreilly.com). Читатели будут иметь возможность приобрести последнюю версию книги в печатном формате либо нескольких цифровых форматах. Или скачать ее из этого репозитория бесплатно.
 
-My extended thanks to [these](https://github.com/addyosmani/backbone-fundamentals/contributors) members of the community for their assistance tweaking the project.
+Корректировки этого материала всегда приветсвуются, и я надеюсь, что вместе мы обеспечить сообщество актуальным на сегодняшний день вспомогательным материалом.
 
-##Index
+Более полные благодарности [этим](https://github.com/addyosmani/backbone-fundamentals/contributors) членам сообщества за их помощь в доводке этого проекта.
 
-* [Introduction](#introduction)
+##Содержание
 
-* ####[Fundamentals](#fundamentals)
-    * [Understanding MVC & MVP](#mvc-mvp)
+* [Введение](#introduction)
 
-* ####[The Basics](#thebasics)
-    * [Models](#models)
-    * [Views](#views)
-    * [Collections](#collections)
-    * [Routers](#routers)
-    * [Namespacing](#namespacing)
-    * [Additional tips](#additional-tips)
+* ####[Теория](#fundamentals)
+    * [Понимание MVC & MVP](#mvc-mvp)
+
+* ####[Основы](#thebasics)
+    * [Модели](#models)
+    * [Представления](#views)
+    * [Коллекции](#collections)
+    * [Маршрутизаторы](#routers)
+    * [Пространства имен](#namespacing)
+    * [Дополнительные советы](#additional-tips)
 
 * ####[Advanced](#advanced)
     * [Building RESTful applications with Backbone](#restful)
