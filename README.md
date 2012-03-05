@@ -276,20 +276,20 @@ _.templateSettings = { interpolate : /\{\{(.+?)\}\}/g };
 В связи с этим, не смотря на указанное в официальной документации или в записях блога, Backbone не является ни MVC/MVP, ни MVVM фреймворком. Лучше всего воспринимать его сленом семейства MV* фреймворков, которые приближаются к изначальной архитектуре по-своему. В этом, конечно же, нет ничего плохого, но важно понимать различия между классическим MVC и MV* когда вы вступаете в обсуждение  ваших backbone проектов и затрагиваете тему MVC.
 
 
-### Controllers in Spine.js vs Backbone.js
+###Сравнение контроллеров в Spine.js и Backbone.js
 
 
 **Spine.js**
 
-We now know that controllers are traditionally responsible for updating the view when the model changes (and similarly the model when the user updates the view). Since Backbone doesn't have its **own** explicit controllers, it's useful to review the controller from another MVC framework to appreciate the difference in implementations. Let's take a look at [Spine.js](http://spinejs.com/):
+Мы уже знаем, что контроллеры традиционно обновляют представления, когда в моделях происходят изменения и аналогично воздействуют на модель, когда пользователь манипулирует пердставлением. Мы так же выяснили, что Backbone не имеет **собственного** явного контроллера, поэтому полезно будет взглянуть на контроллеры в других MVC фреймворках, чтобы сравнить реализации. Давайте посмотрим на [Spine.js](http://spinejs.com/):
   
-In this example, we're going to have a controller called ```PhotosController``` which will be in charge of individual photos in the application. It will ensure that when the view updates (e.g a user edited the photo meta-data) the corresponding model does too. 
+В этом примере мы создадим контроллер ```PhotosController```, который будет отвечать за изменения отдельных фотографий в приложении. Это будет гарантированно означать, что при обновлении представления (например, пользователь редактирует мета-данные фотографии) соответствующая модель будет делать тоже самое.
 
-(Note: We won't be delving heavily into Spine.js beyond this example, but it's worth looking at it to learn more about Javascript frameworks in general.)
+(Примечание: Мы не будем сильно углубляться в Spine.js в этом примере, но для большего понимания в целом работы Javascript фреймворков это сделать стоит.)
 
 
 ```javascript
-// Controllers in Spine are created by inheriting from Spine.Controller
+// Контроллеры в Spine создаются путем наследования от Spine.Controller
 
 var PhotosController = Spine.Controller.sub({      
   init: function(){
@@ -298,7 +298,7 @@ var PhotosController = Spine.Controller.sub({
   },
 
   render: function(){
-    // Handle templating
+    // Обработка шаблонов
     this.replace($("#photoTemplate").tmpl(this.item));
     return this;
   },
@@ -310,20 +310,21 @@ var PhotosController = Spine.Controller.sub({
 });
 ```
 
-In Spine, controllers are considered the glue for an application, adding and responding to DOM events, rendering templates and ensuring that views and models are kept in sync (which makes sense in the context of what we know to be a controller).
+В Spine контроллеры считаются клеем всег оприложения: добавляя реакции на события DOM, отрисовывая шаблоны и обеспечивая синхронизацию моделей и представлений (что соответсвует тому, что мы узнали о контроллерах в шаблоне MVC).
 
-What we're doing in the above example is setting up listeners in the ```update``` and ```destroy``` events using ```render()``` and ```remove()```. When a photo entry gets updated, we re-render the view to reflect the changes to the meta-data. Similarly, if the photo gets deleted from the gallery, we remove it from the view. In case you were wondering about the ```tmpl()``` function in the code snippet: in the ```render()``` function, we're using this to render a JavaScript template called #photoTemplate which simply returns a HTML string used to replace the controller's current element. 
+Вот, чтомы делаем в приведенном выше примере: назначаем слушателей для событий ```update``` и ```destroy``` в виде функций ```render()``` и ```remove()``` соответсвенно. Когда запись фотографии обновляется, мы перерисовываем представление, чтобы отразить в нем изменения мета-данных. Аналогично: если фотография будет удалена из галерее, то она должна будет пропасть и в представлении. В случае, если вы задаетесь вопросом о функции ```tmpl()``` в отрывке кода: в функции ```render()``` для визуализации представления мы используем JavaScript шаблон с именем #photoTemplate, которая просто возвращает HTML строку, заменяющей текущий элемент контроллера.
 
-What this provides us with is a very lightweight, simple way to manage changes between the model and the view.
+Все это дает нам очень простой и легкий способ управления изменениями между моделью и представлением.
 
 
 **Backbone.js**
 
-Later on in this section we're going to revisit the differences between Backbone and traditional MVC, but for now let's focus on controllers. 
+Позже в этом разделе мы рассмотрим различия между Backbone и традичионным MVC, но пока что давайте сфокусируемся на контроллерах.
 
-In Backbone, controller logic is shared between Backbone.View and Backbone.Router. Earlier releases of Backbone contained something called Backbone.Controller, but it was renamed to Router to clarify its role.
+В Backbone логика контроллера распределяется между Backbone.View и Backbone.Router. В ранних релизах Backbone содержался и так называемый и Backbone.Controller, но его переименовали в маршрутизатор, чтобы прояснить его роль.
 
-A Router's main purpose is to translate URL requests into application states. When a user browses to the URL www.example.com/photos/42, a Router could be used to show the photo with that ID, and to define what application behavior should be run in response to that request. Routers *can* contain traditional controller responsibilities, such as binding the events between models and views, or rendering parts of the page. However, Backbone contributor Tim Branyen has pointed out that it's possible to get away without needing Backbone.Router at all for this, so a way to think about it using the Router paradigm is probably:
+Основная роль Маршрутизаторов - это перевод URL-запросов с статусы приложения. Когда пользователь переходит по ссылке www.example.com/photos/42, Маршрутизатор используется, чтобы показать фотографию с таким ID, и определяет, как себя должно повести приложение в ответ на этот запрос. Маршрутизатор *может* содержать и традиционные функции контроллера, такие как привязка событий между моделями и представлениями или визуализация отдельных участков страницы. Тем не менее, соучастник проекта Backbone Tim Branyen указал на то, что все это можно реализовывать и без Backbone.Router, поэтому вероятный пример использования конроллера выглядит так:
+
 
 ```javascript
 var PhotoRouter = Backbone.Router.extend({
