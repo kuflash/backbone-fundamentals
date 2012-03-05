@@ -66,16 +66,16 @@
 
 ##<a name="fundamentals">Теория</a>
 
-In this section we are going to cover the context into which a framework like Backbone.js fits. Let's begin our journey into understanding Backbone better with a look at code architecture. 
+В этом разделе мы попробуем разобрать общие принципы, по которым работает Backbone.js. Давайте начнем наше путешествие в лучшее понимание Backbone начав с осмотра общей архитектуры кода.
 
 
-###<a name="mvc-mvp">Understanding MVC And MVP (For JavaScript Developers)</a>
+###<a name="mvc-mvp">Понимание MVC & MVP (For JavaScript Developers)</a>
 
-Before exploring any JavaScript frameworks that assist in structuring applications, it can be useful to gain a basic understanding of architectural design patterns. Design patterns are proven solutions to common development problems and can suggest structural approaches to help guide developers in adding some organization to their applications. 
+Перед началом изучения любого JavaScript-фреймворка, который служит для структурирования приложений, полезным будет получение базовых знаний об шаблонах архитектурного проектирования. Шаблон проектирования - это проверенное решение общих проблем разработки, способное предлжить разработчикам структурные подходы при организации их приложений.
 
-Patterns are useful because they're a set of practices that build upon the collective experience of skilled developers who have repeatedly solved similar problems. Although developers 10 or 20 years ago may not have been using the same programming languages when implementing patterns in their projects, there are many lessons we can learn from their efforts.
+Шаблоны успешны(полезны), поскольку являются набором практик, которые основываются на коллективном опыте квалифицированных разработчиков, решавших подобные проблемы не один раз. И хотя разработчики 10 или 20 лет назад не использовали теже програмные языки при при реализации шаблонов проектирования в своих проектах, из их усилий мы можем почерпнуть для себя очень много уроков.
 
-In this section, we're going to review two popular patterns - MVC and MVP. We'll be exploring in greater detail how Backbone.js implements these patterns later in this book.
+В этом разделе мы собираемся рассмотреть два популярных шаблона проектирования - MVC и MVP. Далее в этой книге мы изучим более подробно, как Backbone реализует эти паттерны.
 
 
 ##MVC
