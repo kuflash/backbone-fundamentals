@@ -265,15 +265,15 @@ _.templateSettings = { interpolate : /\{\{(.+?)\}\}/g };
 
 ###Контроллеры
 
-Controllers are an intermediary between models and views which are classically responsible for two tasks: they both update the view when the model changes and update the model when the user manipulates the view. 
+Контроллеры являются посредниками между моделями и представлениями, которые классически выполняют две задачи: они одинаково обновляют представление, когда изменяется модель, и модель, когда пользователь манипулирует представлением.
    
-In our photo gallery application, a controller would be responsible for handling changes the user made to the edit view for a particular photo, updating a specific photo model when a user has finished editing.
+В нашем приложении фотогалереи конроллер будет отвечать за обработку изменений, которые пользователь совершает в представлении над конкретной фотографией, и обновлять модель фотографии, когда пользователь заканчивает редактирование.
 
-It's with controllers that most JavaScript MVC frameworks depart from this interpretation of the MVC pattern. The reasons for this vary, but in my opinion, Javascript framework authors likely initially looked at server-side interpretations of MVC (such as Ruby on Rails), realized that that approach didn't translate 1:1 on the client-side, and so re-interpreted the C in MVC to solve their state management problem. This was a clever approach, but it can make it hard for developers coming to MVC for the first time to understand both the classical MVC pattern and the "proper" role of controllers in other non-Javascript frameworks. 
+Именно в контроллерах большинство JavaScript MVC фреймворков отходят от основной интерпретации MVC шаблонов. Причины тому разные, но, на мой взгляд, авторы JavaScript фреймворков вероятно сначала взглянули на серверную интерпретацию MVC (например как в Ruby on Rails) и поняли, что не смогут реализовать такой подход один к одному на стороне клиента и переинтерпретировали роль контроллеров в MVC для решения его проблем с управлением статусов. Они подошли к этому с умом, однако тем самым, возможно, осложнили для разработчиков, которые только начинают вникать в MVC, понимание концепции шаблонов MVC для фреймворков на других языках программирования.
 
-So does Backbone.js have Controllers? Not really. Backbone's Views typically contain "controller" logic, and Routers (discussed below) are used to help manage application state, but neither are true Controllers according to classical MVC. 
+Так есть ли в backbone.js Контроллеры? не совсем. Представления в Backbone как правило содержат в себе логику "контроллеров", в тоже время маршрутизаторы (о них ниже) используются для управления статусами приложения, но они не являются Контроллерами в классическом понимании MVC.
 
-In this respect, contrary to what might be mentioned in the official documentation or in blog posts, Backbone is neither a truly MVC/MVP nor MVVM framework. It's in fact better to see it a member of the MV* family which approaches architecture in its own way. There is of course nothing wrong with this, but it is important to distinguish between classical MVC and MV* should you be relying on discussions of MVC to help with your Backbone projects.
+В связи с этим, не смотря на указанное в официальной документации или в записях блога, Backbone не является ни MVC/MVP, ни MVVM фреймворком. Лучше всего воспринимать его сленом семейства MV* фреймворков, которые приближаются к изначальной архитектуре по-своему. В этом, конечно же, нет ничего плохого, но важно понимать различия между классическим MVC и MV* когда вы вступаете в обсуждение  ваших backbone проектов и затрагиваете тему MVC.
 
 
 ### Controllers in Spine.js vs Backbone.js
