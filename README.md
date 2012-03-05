@@ -53,18 +53,18 @@
 
 Как JavaScript-разработчики, мы живем в интересное время, когда не только у нас имеются зрелые решения, помогающие организовать и усилить JavaScript-приложения, базирующиеся на разделении задач. Разработчики, работающие над нетривиальными проектами, имеют возможность выбора фреймворка, который поможет им структурировать их приложения.
 
-Maturity in software (framework) development isn't simply about how long a framework has been around. It's about how solid the framework is and more importantly how well it's evolved to fill its role. Has it become more effective at solving common problems? Does it continue to improve as developers build larger and more complex applications with it?
+Зрелоть разработки программного обеспечения (фреймворка в частности) заключается не просто в том, на сколько давно этот фреймворк существует, а в том, на сколько этот фреймворк надежен и, что более важно, как хорошо он развивался, чтобы выполнить свою роль. Стал ли он более эффективным при решении общих проблем? Продолжает ли он помогать разработчикам создавать более крупные и сложные приложения?
 
 В этой книге я расскажу о популярном Backbone.js, который я считаю лучшим из существующего семейства архитектурных JavaScript-фреймворков.
 
 Темы будут включать в себя MVC теорию, а так же принципы построения приложений с использованием моделей, представлений, коллекций и маршрутизаторов из Backbone. Я также проведу вас по сложным темам, таким как: модульная разработка с использованием Backbone.js и AMD (RequireJS), построение приложений с использованием современног опрограммного стека(Node.js  и Express), разрешение проблем маршрутизации Backbone и jQuery Mobile, советы по инструментам скафолдинга и многео другое.
 
-If this is your first time looking at Backbone.js and you're still unsure whether or not to give it a try, why not take a look at how [a Todo application](http://github.com/addyosmani/todomvc) can be implemented in Backbone and several other popular Javascript frameworks before reading further?
+Если вы узнали о Backbone.js впервые и все еще сомневаетесь, пробовать его или нет, то почему бы не взглянуть на  то, как [Todo приложение](http://github.com/addyosmani/todomvc) может быть реализовано с помощью Backbone и других популярных Backbone-фреймворков, прежде, чем читать дальше?
 
-The goal of this book is to create an authoritative and centralized repository of information that can help those developing real-world apps with Backbone. If you come across a section or topic which you think could be improved or expanded on, please feel free to submit a pull-request. It won't take long and you'll be helping other developers avoid problems you've run into before.
+Цель этой книги - создать авторитетное и централизованное хранилище информации, которая может помочь в создании реальных проектов с помощью Backbone. Если вы считаете, что какой-то раздел или тему можно улучшить и расширить то, пожалуйста, не стесняйтесь и выдвигайте предложения. Это не долго и в тоже время поможет другим разрабочикам избежать проблем, с которыми вы столкнулись раньше их.
 
 
-##<a name="fundamentals">Fundamentals</a>
+##<a name="fundamentals">Теория</a>
 
 In this section we are going to cover the context into which a framework like Backbone.js fits. Let's begin our journey into understanding Backbone better with a look at code architecture. 
 
