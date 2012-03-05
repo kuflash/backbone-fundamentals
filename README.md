@@ -101,29 +101,27 @@ MVC (Model-View-Controller) - это шаблон архитектурного �
 
 ##MVC как мы его знаем
 
-We've reviewed the 70's, but let us now return to the here and now. The MVC pattern has been applied to a diverse range of programming languages. For example, the popular Ruby on Rails is an implementation of a web application framework based on MVC for the Ruby language. JavaScript now has a number of MVC frameworks, including Ember.js, JavaScriptMVC, and of course Backbone.js. Given the importance of avoiding "spaghetti" code, a term which describes code that is very difficult to read or maintain due to its lack of structure, let's look at what the MVC pattern enables the Javascript developer to do.
+Мы рассмотели 70-е года, однако давайте вернемся в нынешнее время. Шаблон MVC был применен в широком спектре языков программирования. Для примера, популярный Ruby on Rails - это реализация фреймворка, основанного на MVC, для создания веб-приложений с помощью языка Rails. JavaScript на данный момент имеет ряд MVC-фреймворков, таких как Ember.js, JavaScriptMVC, и конечно же Backbone.js. Учитывая важность избегания спагетти-кода (термин, характеризующий код, который очень воспринимаем для чтения и трудно поддерживаем из-за отсутсвия структуры) давайте посмотрим, что позволяют делать Javascript-разработчику MVC шаблоны.
 
-MVC is composed of three core components:
+MVC состоит из трех основных компонентов:
 
-###Models 
+###Модели
 
-Models manage the data for an application. They are concerned with neither the user-interface nor presentation layers, but instead represent structured data that an application may require. When a model changes (e.g when it is updated), it will typically notify its observers (e.g views, a concept we will cover shortly) that a change has occurred so that they may react accordingly.
+Модели управляют данными приложения. Они не беспокоятся ни о пользовательском интерфейса, ни о слоях представлений, но предоставляют структурированные данные, которые могет потребоваться приложению. Когда изменяется модель (например, при ее обновлении), она как правило уведомляет своих наблюдателей (например, Представления - о концепции мы расскажем чуть позже) что произошло изменение, на которое они могут отреагировать.
   
-To understand models better, let us imagine we have a JavaScript photo gallery application. In a photo gallery, a photo would merit its own model, as it represents a unique kind of domain-specific data. The Photo model may represent attributes such as a caption, image source and additional meta-data. A specific photo would be stored in an instance of a model. Here's an example of a simple Photo model implemented with Backbone.js:
-
-
+Чтобы понять модели лучше, давайте представим, что у нас есть JavaScript-приложение: фотогалерея. В фотогалерее фотографии неообходима собственная модель, поскольку она представляет собой уникальный вид предметно-ориентированных данных. Модель фотографии может содержать атрибуты, такие как заголовок, источник изображения и другие мета-данные. Конкретные фотографии будут храниться в экземплярах модели. Вот пример простой модели фотографии с использованием Backbone.js:
 
 ```javascript
 var Photo = Backbone.Model.extend({
 
-    // Default attributes for the photo
+    // Атрибуты по умолчанию для фотографии
     defaults: {
       src: "placeholder.jpg",
       caption: "A default image",
       viewed: false
     },
 
-    // Ensure that each photo created has an `src`.
+    // Убедитесь, что каждая фотография имеет заданный путь 'src'
     initialize: function() {
        this.set({"src": this.defaults.src});
     }
@@ -131,27 +129,26 @@ var Photo = Backbone.Model.extend({
 });
 ```
 
-The built-in capabilities of models vary across frameworks, however it's common for them to support validation of attributes, where attributes represent the properties of the model, such as a model identifier. When using models in real-world applications we generally also need a way of persisting models. Persistence allows us to edit and update models with the knowledge that their most recent states will be saved somewhere, for example in a web browser's localStorage data-store or synchronized with a database.
+Встроенные возможности модели варьируются в зависимости от фреймворка, однако поддержка валидации атрибутов, где атрибуты представляют свойства модели, как, например, идентификатор модели, является для них общим признаком. При использовании модели в реальном приложении мы, как правило, нуждаемся в сохраняющихся моделях. Сохраняющееся состояние позволяет нам редактировать и обновлять модель, с уверенностью, что модель будет где-либо сохранена, например, в localStorage браузера или синхронизирована с базой сервера.
 
-A model may also have multiple views observing it. Imagine our Photo model contained meta-data such as the longitude and latitude where the photo was taken, a list of people present in the photo, and a list of tags. A developer could create a single view that displayed all these attributes, or might create three separate views to display each attribute. The important detail is that the Photo model doesn't care how these views are organized, it simply announces updates to its data as necessary. We'll come back to Views in more detail later.
+Модель может так же иметь несколько Представлений-наблюдателей. Представьте нашу модель Фотографии, которая содержит мета-данные о широте и долготе, где она была сделана, список людей, которые отображены на фотографии и список тегов. Разработчик может создать отдельное Представление, которое содержит все эти атрибуты, либо три отдельных Представления выводящих каждый их атрибутов отдельно. Важная деталь в том, что модель Фотографии не волнует, как организованы Представления, она просто оповещает об обновлении ее данных по мере необходимости. Мы вернемся к Представлениям более подробно позже.
 
-It is not uncommon for modern MVC/MV* frameworks to provide a means to group models together. In Backbone, these groups are called "Collections". Managing models in groups allows us to write application logic based on notifications from the group, should any model it contains change. This avoids the need to manually observe individual model instances.
- 
+Для современных MVC/MV* фреймворков не является редкостью предоставление возможности группировки моделей вместе. в Backbone такие группы называются "Коллекции". Управление моделями в группах позволяет нам писать такую логику приложения, которая основывается на уведомлении измененных моделей из группы. Это позволяет избежать наблюдения вручную за каждым экземпляром модели.
 
-Here's how we might group Photo models into a simplified Backbone Collection:
+Вот так бы мы могли группировать модил фотографии в упрощенной Коллекции Backbone:
 
 ```javascript
 var PhotoGallery = Backbone.Collection.extend({
 
-    // Reference to this collection's model.
+    // Ссылка на модели этой коллекции
     model: Photo,
 
-    // Filter down the list of all photos that have been viewed
+    // Фильтр по списку всех фотографий, которые были просмотрены
     viewed: function() {
       return this.filter(function(photo){ return photo.get('viewed'); });
     },
 
-    // Filter down the list to only photos that have not yet been viewed
+    // Фильтр только по списку фотографии, которые еще не просматривались
     unviewed: function() {
       return this.without.apply(this, this.viewed());
     }
@@ -159,7 +156,7 @@ var PhotoGallery = Backbone.Collection.extend({
 });
 ```
 
-If you read older texts on MVC, you may come across a description of models as also managing application 'state'. In JavaScript applications "state" has a specific meaning, typically referring to the current "state" of a view or sub-view on a user's screen at a fixed time. State is a topic which is regularly discussed when looking at Single-page applications, where the concept of state needs to be simulated.
+Если вы читали старые тексты об MVC, то вы могли столкнуться в описании модели с применением такого способа управления как "состояние". В JavaScript применение "состояния" имеет особое значение, типично относящееся к "состоянию" Представления или Под-представления на экране пользователя в определенное время. Состояние является темой, регулярно поднимаемой при обсуждении одностраничных приложений, в которых концепция состояний должна быть смоделирована.
 
 
 ###Views
