@@ -1,7 +1,7 @@
 #Разработка Backbone.js Приложений
 Это книга о Backbone.js предназначена для новичков и опытных пользователей.
 
-Главная ветка книги 'Developing Backbone.js Applications', которая описывает работу с Backbone.js-фреймворком, предназначенным для структурирования JavaScript-приложений. Выпущена под лицензией [CC](http://creativecommons.org/licenses/by-nc-sa/3.0/).
+[Главная ветка](https://github.com/addyosmani/backbone-fundamentals) книги 'Developing Backbone.js Applications', которая описывает работу с Backbone.js-фреймворком, предназначенным для структурирования JavaScript-приложений. Выпущена под лицензией [CC](http://creativecommons.org/licenses/by-nc-sa/3.0/).
 
 <i>(Данный форк является переводом на русский язык. Ввиду отсуствия других переводов, можно считать этот перевод официальным - Прим. Переводчика)</i>
 
