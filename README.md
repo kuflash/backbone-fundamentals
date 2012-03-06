@@ -339,23 +339,24 @@ var PhotoRouter = Backbone.Router.extend({
 }):
 ```
 
-##What does MVC give us?
+##Что MVC даст нам?
 
-To summarize, the separation of concerns in MVC facilitates modularization of an application's functionality and enables:
+Итак, разделение задач в MVC обеспечивает модульность функциональности приложения и позволяет:
 
-* Easier overall maintenance. When updates need to be made to the application it is clear whether the changes are data-centric, meaning changes to models and possibly controllers, or merely visual, meaning changes to views.  
-* Decoupling models and views means that it's straight-forward to write unit tests for business logic    
-* Duplication of low-level model and controller code is eliminated across the application
-* Depending on the size of the application and separation of roles, this modularity allows developers responsible for core logic and developers working on the user-interfaces to work simultaneously
+* Облегчение поддержки кода. Когда должны быть произведены обновления в приложении, это можно сделать прозрачно, делаются ли изменения, ориентированные на данные (то есть изменения в моделях и, возможно, контроллерах) или просто визуальные правки (то есть изменения в представлениях).
+* Разделение модели и представления означает прямой путь к написанию unit-тестов для бизнес-логики.
+* Устраняется дублирование кода моделей и контроллеров в приложении.
+* В зависимости от размера приложения и разделения ролей, такая модульность позволяет разработчикам, занимающимся написанием ядра и разработчикам, работающим над пользовательским интерфейсом, работать одновременно.
 
 
-###Delving deeper
+###Углубляясь
 
-Right now, you likely have a basic understanding of what the MVC pattern provides, but for the curious, we'll explore it a little further. 
+Прямо сейчас, вы, скорее всего, уже имеете базовое понимание модели MVC, однако дальше мы рассмотрим более любопытные моменты.
 
-The GoF (Gang of Four) do not refer to MVC as a design pattern, but rather consider it a "set of classes to build a user interface". In their view, it's actually a variation of three other classical design patterns: the Observer (Pub/Sub), Strategy and Composite patterns. Depending on how MVC has been implemented in a framework, it may also use the Factory and Decorator patterns. I've covered some of these patterns in my other free book, JavaScript Design Patterns For Beginners if you would like to read into them further.
+GoF (Gang of Four) не относятся в MVC, как к шаблону проектирования, а считают это "набором классов для создания пользовательского интерфейса". По их мнению, это вариация из трех других классических шаблонов проектирвоания: Наблюдатель (Пуб./Подп.), Стратегия и Композитные шаблоны. В зависимости от того, как был спроектирован MVC в фреймворке, она также может иметь Фабрику и шаблоны Декоратора. <i>(Возможны ошибки в переводе названий компонентов - Прим.Пер.)</i> Я рассмотрел некоторые из этих моделей в другой моей бесплатной книге "JavaScript Design Patterns For Beginners". Если вы хотите, можете прочитать ее следом.
 
-As we've discussed, models represent application data, while views handle what the user is presented on screen. As such, MVC relies on Pub/Sub for some of its core communication (something that surprisingly isn't covered in many articles about the MVC pattern). When a model is changed it "publishes" to the rest of the application that it has been updated. The "subscriber"--generally a Controller--then updates the view accordingly. The observer-viewer nature of this relationship is what facilitates multiple views being attached to the same model. 
+Как мы уже выяснили, модели представляют собой данные приложения, а представления помогают в том, что пользователь увидит на экране.
+As such, MVC relies on Pub/Sub for some of its core communication (something that surprisingly isn't covered in many articles about the MVC pattern). When a model is changed it "publishes" to the rest of the application that it has been updated. The "subscriber"--generally a Controller--then updates the view accordingly. The observer-viewer nature of this relationship is what facilitates multiple views being attached to the same model. 
 
 For developers interested in knowing more about the decoupled nature of MVC (once again, depending on the implementation), one of the goals of the pattern is to help define one-to-many relationships between a topic and its observers. When a topic changes, its observers are updated. Views and controllers have a slightly different relationship. Controllers facilitate views to respond to different user input and are an example of the Strategy pattern.
 
