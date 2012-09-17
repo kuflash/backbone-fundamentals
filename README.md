@@ -1,4 +1,4 @@
-#Разработка Backbone.js Приложений
+﻿#Разработка Backbone.js Приложений
 Это книга о Backbone.js предназначена для новичков и опытных пользователей.
 
 [Главная ветка](https://github.com/addyosmani/backbone-fundamentals) книги 'Developing Backbone.js Applications', которая описывает работу с Backbone.js-фреймворком, предназначенным для структурирования JavaScript-приложений. Выпущена под лицензией [CC](http://creativecommons.org/licenses/by-nc-sa/3.0/).
@@ -356,21 +356,19 @@ GoF (Gang of Four) не относятся к MVC, как к шаблону пр
 Как мы уже выяснили, модели представляют собой данные приложения, а представления формируют то, что пользователь увидит на экране.
 По существу, MVC полагается на Пуб./Подп. для части его основных взаимодействий (удивительно, что в большинстве статей о MVC шаблонах это не рассматривается). Когда модель изменяется, она "публикует" для остального приложения, что она обновилась. Затем "подписчик" (в общем случае Контроллер) обновляет соответствующим образом Представление. Наблюдатель-представитель, характер этой связи в том, что это облегчает привязку нескольких представлений к одной модели.
 
-Для разработчиков, заинтересованных в получении дополнительных знаний о раздельной природе MVC (опять же, в зависимости от реализации) 
-For developers interested in knowing more about the decoupled nature of MVC (once again, depending on the implementation), one of the goals of the pattern is to help define one-to-many relationships between a topic and its observers. When a topic changes, its observers are updated. Views and controllers have a slightly different relationship. Controllers facilitate views to respond to different user input and are an example of the Strategy pattern.
-
+Для разработчиков, заинтересованных в получении дополнительных знаний о раздельной природе MVC (опять же, в зависимости от реализации), одна из целей паттерна оказать помощь, в реализации связей один-ко-многим между объектом и его наблюдателями. Когда объект изменяется, его наблюдатели тоже обновляются. Взаимодействия представлений и контроллеров немного отличаются. Контроллеры помогают представлениям реагировать на различный пользовательский ввод и являются примером шаблона [Стратегия](http://ru.wikipedia.org/wiki/Стратегия_(шаблон_проектирования\))
 
 ###Выводы
-Рассмотрев классическую MVC модель, вы должны понимать, как она позволяет разработчикам четко разделить задачи в приложении. Также вы должны представлять себе, чем JavaScript MVC фреймворки могут различаться в своих интерпритациях MVC, и как они расширяют некоторые основные концепции оригинальной схемы.
+Рассмотрев классическую MVC модель, вы должны понимать, как она позволяет разработчикам четко разделить задачи в приложении. Также, вы должны представлять себе, чем JavaScript MVC фреймворки могут различаться в своих интерпретациях MVC, и как они расширяют некоторые основные концепции оригинальной схемы.
 
-При рассмотрении нового JavaScript MVC/MV* фреймворка помните - возможно будет полезно отступиться и рассмотреть какой у него подход к Моделям, Представлениям и Контроллерам или их альтеранивам, поскольку это может лучше помочь с выбором используемого фреймворка.
+При рассмотрении нового JavaScript MVC/MV* фреймворка помните - возможно, будет полезно отступиться и рассмотреть какой у него подход к Моделям, Представлениям и Контроллерам или их альтернативам, поскольку это может лучше помочь с выбором используемого фреймворка.
 
 
 ##MVP
 
-Model-view-presenter (MVP) is a derivative of the MVC design pattern which focuses on improving presentation logic. It originated at a company named [Taligent](http://en.wikipedia.org/wiki/Taligent) in the early 1990s while they were working on a model for a C++ CommonPoint environment. Whilst both MVC and MVP target the separation of concerns across multiple components, there are some fundamental differences between them. 
+Model-view-presenter (MVP) - производный от MVC шаблон проектирования, который фокусируется на улучшений логики презентации. Он появился в компании именуемой  [Taligent](http://en.wikipedia.org/wiki/Taligent) вначале 1990-х, когда они работали над моделью C++ для окружения CommonPoint. И хотя цель MVC и MVP в разделении задач между множеством компонентов, они имеют некоторые фундаментальные различия.
 
-For the purposes of this summary we will focus on the version of MVP most suitable for web-based architectures.
+Подводя итоги, мы рассмотрим версию MVP наиболее подходящую для архитектуры вэб.
 
 ###Models, Views & Presenters
 
