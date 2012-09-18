@@ -368,24 +368,22 @@ GoF (Gang of Four) не относятся к MVC, как к шаблону пр
 
 Model-view-presenter (MVP) - производный от MVC шаблон проектирования, который фокусируется на улучшений логики презентации. Он появился в компании именуемой  [Taligent](http://en.wikipedia.org/wiki/Taligent) вначале 1990-х, когда они работали над моделью C++ для окружения CommonPoint. И хотя цель MVC и MVP в разделении задач между множеством компонентов, они имеют некоторые фундаментальные различия.
 
-Подводя итоги, мы рассмотрим версию MVP наиболее подходящую для архитектуры вэб.
+Подводя итоги, мы рассмотрим версию MVP наиболее подходящую для архитектуры веб.
 
-###Models, Views & Presenters
+###Модель, Представление & Презентатор
 
-The P in MVP stands for presenter. It's a component which contains the user-interface business logic for the view. Unlike MVC, invocations from the view are delegated to the presenter, which are decoupled from the view and instead talk to it through an interface. This allows for all kinds of useful things such as being able to mock views in unit tests. 
+P, в составе MVP, поставлена для презентатора. Это компонент, который содержит бизнес логику для пользовательского интерфейса Представления. В отличие от MVC, обращения из представления делегируются Презентатору, который не связан с представлением, а общается с ним через интерфейс. Это способствует множеству полезных вещей, таких как, возможность проводить над представлениями unit тесты. 
 
-The most common implementation of MVP is one which uses a Passive View (a view which is for all intents and purposes "dumb"), containing little to no logic. MVP models are almost identical to MVC models and handle application data. The presenter acts as a mediator which talks to both the view and model, however both of these are isolated from each other. They effectively bind models to views, a responsibility held by Controllers in MVC. Presenters are at the heart of the MVP pattern and as you can guess, incorporate the presentation logic behind views. 
+Наиболее общая реализация MVP использует пассивные представления (представления для всевозможных целей «манекены»), практически не содержащие логики.
+ Модели в MVP практически идентичны моделям в MVC, они обрабатывают данные приложения. Презентатор работает как посредник, общаясь и с представлением, и с моделью, однако, попарно они изолированы друг от друга. Он эффективно связывает модели и представления, обеспечивая функцию Контроллеров в MVC. Презентатор являются сердцем MVP шаблона, и как вы можете догадываться, включают логику отображения представлений.	
 
+По запросу представления, презентаторы выполняют любую работу с пользовательскими данными и обратно передают им данные. Таким образом, они получают данные, манипулируют с ними и определяют, как данные должны быть отображены в представлении. В некоторых реализациях презентатор также взаимодействует с серверной частью хранящей данные (модели). Модели могут порождать события, а роль презентаторы быть для них подписчиком, и обновлять представления. В пассивной архитектуре мы имеем концепцию прямой привязки данных, Представления предоставляют сеттеры, через которые презентаторы могут предоставлять им дынные.
+ 	
+Преимущество этих изменений MVC в увеличении тестируемости ваших приложений, и предоставлении более четкого разделения представления и модели. Однако это имеет и свою цену, отсутствие поддержки привязки данных в шаблоне часто оказывается еще одной задачей, позаботиться о которой надо отдельно.
+	
+Несмотря на то, что основная реализация [Пассивных Представлений](http://martinfowler.com/eaaDev/PassiveScreen.html) это представления создающие интерфейс, есть их различные варианты, вплоть до событий, которые могут чуть больше разделить Представления и Презентатора. Так как у нас нет интерфейса, построенного на JavaScript, мы будем больше пользоваться им как протоколом, нежели как интерфейсом описанным тут. Технически - это по-прежнему набор  API, и для нас удобнее рассматривать интерфейс с этой точки зрения.
 
-Solicited by a view, presenters perform any work to do with user requests and pass data back to them. In this respect, they retrieve data, manipulate it and determine how the data should be displayed in the view. In some implementations, the presenter also interacts with a service layer to persist data (models). Models may trigger events but it's the presenter's role to subscribe to them so that it can update the view. In this passive architecture, we have no concept of direct data binding. Views expose setters which presenters can use to set data. 
-
-The benefit of this change from MVC is that it increases the testability of your application and provides a more clean separation between the view and the model. This isn't however without its costs as the lack of data binding support in the pattern can often mean having to take care of this task separately.
-
-Although a common implementation of a [Passive View](http://martinfowler.com/eaaDev/PassiveScreen.html) is for the view to implement an interface, there are variations on it, including the use of events which can decouple the View from the Presenter a little more. As we don't have the interface construct in JavaScript, we're using it more as more a protocol than an explicit interface here. It's technically still an API and it's probably fair for us to refer to it as an interface from that perspective.
-
-
-There is also a [Supervising Controller](http://martinfowler.com/eaaDev/SupervisingPresenter.html) variation of MVP, which is closer to the MVC and [MVVM](http://en.wikipedia.org/wiki/Model_View_ViewModel) patterns as it provides data-binding from the Model directly from the View. Key-value observing (KVO) plugins (such as Derick Bailey's Backbone.ModelBinding plugin) introduce this idea of a Supervising Controller to Backbone.
-
+Еще есть разновидность MVP [Supervising Controller](http://martinfowler.com/eaaDev/SupervisingPresenter.html), которая ближе к MVC и [MVVM](http://en.wikipedia.org/wiki/Model_View_ViewModel) шаблонам, так как она предоставляет привязку данных из модели напрямую к представлениям. Модули, отслеживающие пары ключ-значение (KVO) (к примеру Backbone.ModelBinding от Derick Bailey's) внедряют идею Supervising Controller в Backbone.
 
 ##MVP or MVC?
 
