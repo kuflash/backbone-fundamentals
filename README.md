@@ -385,19 +385,19 @@ P, в составе MVP, поставлена для презентатора. 
 
 Еще есть разновидность MVP [Supervising Controller](http://martinfowler.com/eaaDev/SupervisingPresenter.html), которая ближе к MVC и [MVVM](http://en.wikipedia.org/wiki/Model_View_ViewModel) шаблонам, так как она предоставляет привязку данных из модели напрямую к представлениям. Модули, отслеживающие пары ключ-значение (KVO) (к примеру Backbone.ModelBinding от Derick Bailey's) внедряют идею Supervising Controller в Backbone.
 
-##MVP or MVC?
+##MVP или MVC?
 
-MVP is generally used most often in enterprise-level applications where it's necessary to reuse as much presentation logic as possible. Applications with very complex views and a great deal of user interaction may find that MVC doesn't quite fit the bill here as solving this problem may mean heavily relying on multiple controllers. In MVP, all of this complex logic can be encapsulated in a presenter, which can simplify maintenance greatly.
+MVP в основном используется в приложениях энтерпрайз уровня, где необходим наибольший процент повторного использования кода в логики представлений. Приложения с очень сложными представлениям и сложным взаимодействием с пользователем могут обнаружить, что MVC не совсем подходит для решения этих задач и в большей степени полагается на многочисленные контроллеры. В MVP вся сложная логика может быть заключена в представлении, которое в дальнейшем намного проще в сопровождении.
 
-As MVP views are defined through an interface and the interface is technically the only point of contact between the system and the view (other than a presenter), this pattern also allows developers to write presentation logic without needing to wait for designers to produce layouts and graphics for the application. 
+В MVP представления определяются через интерфейс и интерфейс технически только точка взаимодействия между системой и представлением (не презентатором), этот паттерн также позволяет разработчикам писать логику представления, не дожидаясь готового каркаса для приложения от дизайнеров.
 
-Depending on the implementation, MVP may be more easy to automatically unit test than MVC. The reason often cited for this is that the presenter can be used as a complete mock of the user-interface and so it can be unit tested independent of other components. In my experience this really depends on the languages you are implementing MVP in (there's quite a difference between opting for MVP for a JavaScript project over one for say, ASP.net).
+В зависимости от реализации MVP легче обрабатывается unit-тестами чем MVC. Это объясняется тем, что презентатор может быть использован как завершенный макет пользовательского интерфейса и поэтому его можно тестировать отдельно от других компонентов. В моем опыте это зависит от языка на котором вы реализуете MVP, в этом разница между выбором MVP для проекта на JavaScript и, к примеру, на ASP.net.
 
-At the end of the day, the underlying concerns you may have with MVC will likely hold true for MVP given that the differences between them are mainly semantic. As long as you are cleanly separating concerns into models, views and controllers (or presenters) you should be achieving most of the same benefits regardless of the pattern you opt for. 
+В итоге, проблемы, которые мы можем получить при использовании MVP, будут схожи с проблемами в MVC, потому что различаются эти шаблоны только семантически. Чем четче вы разделяете логику между моделями, представлениями и контроллерами (презентаторами) тем больше вы получите выгоды, не зависимо от того, какой шаблон проектирования используете.
+ 
+##MVC, MVP и Backbone.js
 
-##MVC, MVP and Backbone.js
-
-There are very few, if any architectural JavaScript frameworks that claim to implement the MVC or MVP patterns in their classical form as many JavaScript developers don't view MVC and MVP as being mutually exclusive (we are actually more likely to see MVP strictly implemented when looking at web frameworks such as ASP.net or GWT). This is because it's possible to have additional presenter/view logic in your application and yet still consider it a flavor of MVC. 
+Очень мало архитектурных Фреймворков JavaScript, в которых утверждается реализация MVC или MVP шаблонов в их классической форме, многие JavaScript разработчики не рассматривают MVC и MVP как взаимоисключающие подходы (Более полную реализацию структуры MVP можно увидеть в веб-фреймворках таких как ASP.net или GWT). Причина в  возможности иметь дополнительную логику для презентатора/представления в вашем приложении по-прежнему рассматривая его в красках MVC. 
 
 Backbone contributor [Irene Ros](http://ireneros.com/) subscribes to this way of thinking as when she separates Backbone views out into their own distinct components, she needs something to actually assemble them for her. This could either be a controller route (such as a ```Backbone.Router```, covered later in the book) or a callback in response to data being fetched.   
 
