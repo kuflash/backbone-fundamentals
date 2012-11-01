@@ -370,18 +370,18 @@ Model-view-presenter (MVP) - производный от MVC шаблон про
 
 Подводя итоги, мы рассмотрим версию MVP наиболее подходящую для архитектуры веб.
 
-###Модель, Представление & Презентатор
+###Модель, Представление & Presenter 
 
-P, в составе MVP, поставлена для презентатора. Это компонент, который содержит бизнес логику для пользовательского интерфейса Представления. В отличие от MVC, обращения из представления делегируются Презентатору, который не связан с представлением, а общается с ним через интерфейс. Это способствует множеству полезных вещей, таких как, возможность проводить над представлениями unit тесты. 
+P, в составе MVP, поставлена для Presenter’а. Это компонент, который содержит бизнес логику для пользовательского интерфейса Представления. В отличие от MVC, обращения из представления делегируются Presenter’у, который не связан с представлением, а общается с ним через интерфейс. Это способствует множеству полезных вещей, таких как, возможность проводить над представлениями unit тесты. 
 
 Наиболее общая реализация MVP использует пассивные представления (представления для всевозможных целей «манекены»), практически не содержащие логики.
- Модели в MVP практически идентичны моделям в MVC, они обрабатывают данные приложения. Презентатор работает как посредник, общаясь и с представлением, и с моделью, однако, попарно они изолированы друг от друга. Он эффективно связывает модели и представления, обеспечивая функцию Контроллеров в MVC. Презентатор являются сердцем MVP шаблона, и как вы можете догадываться, включают логику отображения представлений.	
+ Модели в MVP практически идентичны моделям в MVC, они обрабатывают данные приложения. Presenter  работает как посредник, общаясь и с представлением, и с моделью, однако, попарно они изолированы друг от друга. Он эффективно связывает модели и представления, обеспечивая функцию Контроллеров в MVC. Presenter  являются сердцем MVP шаблона, и как вы можете догадываться, включают логику отображения представлений.	
 
-По запросу представления, презентаторы выполняют любую работу с пользовательскими данными и обратно передают им данные. Таким образом, они получают данные, манипулируют с ними и определяют, как данные должны быть отображены в представлении. В некоторых реализациях презентатор также взаимодействует с серверной частью хранящей данные (модели). Модели могут порождать события, а роль презентаторы быть для них подписчиком, и обновлять представления. В пассивной архитектуре мы имеем концепцию прямой привязки данных, Представления предоставляют сеттеры, через которые презентаторы могут предоставлять им дынные.
+По запросу представления, Presenter’ы выполняют любую работу с пользовательскими данными и обратно передают им данные. Таким образом, они получают данные, манипулируют с ними и определяют, как данные должны быть отображены в представлении. В некоторых реализациях Presenter  также взаимодействует с серверной частью хранящей данные (модели). Модели могут порождать события, а роль Presenter’ы быть для них подписчиком, и обновлять представления. В пассивной архитектуре мы имеем концепцию прямой привязки данных, Представления предоставляют сеттеры, через которые Presenter’ы могут предоставлять им дынные.
  	
 Преимущество этих изменений MVC в увеличении тестируемости ваших приложений, и предоставлении более четкого разделения представления и модели. Однако это имеет и свою цену, отсутствие поддержки привязки данных в шаблоне часто оказывается еще одной задачей, позаботиться о которой надо отдельно.
 	
-Несмотря на то, что основная реализация [Пассивных Представлений](http://martinfowler.com/eaaDev/PassiveScreen.html) это представления создающие интерфейс, есть их различные варианты, вплоть до событий, которые могут чуть больше разделить Представления и Презентатора. Так как у нас нет интерфейса, построенного на JavaScript, мы будем больше пользоваться им как протоколом, нежели как интерфейсом описанным тут. Технически - это по-прежнему набор  API, и для нас удобнее рассматривать интерфейс с этой точки зрения.
+Несмотря на то, что основная реализация [Пассивных редставлений](http://martinfowler.com/eaaDev/PassiveScreen.html) - это представления создающие интерфейс, есть различные их варианты, вплоть до событий, которые могут чуть больше разделить Представления и Presenter’а. Так как у нас нет интерфейса, построенного на JavaScript, мы будем больше пользоваться им как протоколом, нежели как интерфейсом описанным тут. Технически - это по-прежнему набор  API, и для нас удобнее рассматривать интерфейс с этой точки зрения.
 
 Еще есть разновидность MVP [Supervising Controller](http://martinfowler.com/eaaDev/SupervisingPresenter.html), которая ближе к MVC и [MVVM](http://en.wikipedia.org/wiki/Model_View_ViewModel) шаблонам, так как она предоставляет привязку данных из модели напрямую к представлениям. Модули, отслеживающие пары ключ-значение (KVO) (к примеру Backbone.ModelBinding от Derick Bailey's) внедряют идею Supervising Controller в Backbone.
 
@@ -389,50 +389,50 @@ P, в составе MVP, поставлена для презентатора. 
 
 MVP в основном используется в приложениях энтерпрайз уровня, где необходим наибольший процент повторного использования кода в логики представлений. Приложения с очень сложными представлениям и сложным взаимодействием с пользователем могут обнаружить, что MVC не совсем подходит для решения этих задач и в большей степени полагается на многочисленные контроллеры. В MVP вся сложная логика может быть заключена в представлении, которое в дальнейшем намного проще в сопровождении.
 
-В MVP представления определяются через интерфейс и интерфейс технически только точка взаимодействия между системой и представлением (не презентатором), этот паттерн также позволяет разработчикам писать логику представления, не дожидаясь готового каркаса для приложения от дизайнеров.
+В MVP представления определяются через интерфейс и интерфейс технически только точка взаимодействия между системой и представлением (не Presenter’ом), этот паттерн также позволяет разработчикам писать логику представления, не дожидаясь готового каркаса для приложения от дизайнеров.
 
-В зависимости от реализации MVP легче обрабатывается unit-тестами чем MVC. Это объясняется тем, что презентатор может быть использован как завершенный макет пользовательского интерфейса и поэтому его можно тестировать отдельно от других компонентов. В моем опыте это зависит от языка на котором вы реализуете MVP, в этом разница между выбором MVP для проекта на JavaScript и, к примеру, на ASP.net.
+В зависимости от реализации MVP легче обрабатывается unit-тестами чем MVC. Это объясняется тем, что Presenter  может быть использован как завершенный макет пользовательского интерфейса и поэтому его можно тестировать отдельно от других компонентов. В моем опыте это зависит от языка на котором вы реализуете MVP, в этом разница между выбором MVP для проекта на JavaScript и, к примеру, на ASP.net.
 
-В итоге, проблемы, которые мы можем получить при использовании MVP, будут схожи с проблемами в MVC, потому что различаются эти шаблоны только семантически. Чем четче вы разделяете логику между моделями, представлениями и контроллерами (презентаторами) тем больше вы получите выгоды, не зависимо от того, какой шаблон проектирования используете.
+В итоге, проблемы, которые мы можем получить при использовании MVP, будут схожи с проблемами в MVC, потому что различаются эти шаблоны только семантически. Чем четче вы разделяете логику между моделями, представлениями и контроллерами (Presenter’ами) тем больше вы получите выгоды, не зависимо от того, какой шаблон проектирования используете.
  
 ##MVC, MVP и Backbone.js
 
-Очень мало архитектурных Фреймворков JavaScript, в которых утверждается реализация MVC или MVP шаблонов в их классической форме, многие JavaScript разработчики не рассматривают MVC и MVP как взаимоисключающие подходы (Более полную реализацию структуры MVP можно увидеть в веб-фреймворках таких как ASP.net или GWT). Причина в  возможности иметь дополнительную логику для презентатора/представления в вашем приложении по-прежнему рассматривая его в красках MVC. 
+Очень мало архитектурных Фреймворков JavaScript, в которых утверждается реализация MVC или MVP шаблонов в их классической форме, многие JavaScript разработчики не рассматривают MVC и MVP как взаимоисключающие подходы (Более полную реализацию структуры MVP можно увидеть в веб-фреймворках таких как ASP.net или GWT). Причина в  возможности иметь дополнительную логику для Presenter’а/представления в вашем приложении по-прежнему рассматривая его в красках MVC. 
 
-Backbone contributor [Irene Ros](http://ireneros.com/) subscribes to this way of thinking as when she separates Backbone views out into their own distinct components, she needs something to actually assemble them for her. This could either be a controller route (such as a ```Backbone.Router```, covered later in the book) or a callback in response to data being fetched.   
+Backbone contributor [Irene Ros](http://ireneros.com/) подтверждает этот образ мышления, когда она отделяет Backbone Представления в отдельный компонент, и ей нужно что-то, что обеспечило бы актуальные взаимосвязи с ними. Это могут быть контроллеры маршрутов (такие как ```Backbone.Router```, будет рассмотрен ниже) или callback в ответ на получение данных.
 
-That said, some developers do however feel that Backbone.js better fits the description of MVP than it does MVC
-. Their view is that:
+Некоторые разработчики считают, что Backbone.js лучше подходит под описание MVP чем MVC
+. Их мнение заключается в следующем:
 
-* The presenter in MVP better describes the ```Backbone.View``` (the layer between View templates and the data bound to it) than a controller does
-* The model fits ```Backbone.Model``` (it isn't that different from the classical MVC "Model")  
-* The views best represent templates (e.g Handlebars/Mustache markup templates)
+* Presenter в MVP лучше объясняет ```Backbone.View``` (прослойка между шаблоном Представления и привязанными к нему данными) чем контроллер в MVC.
+* Модели соответствуют ```Backbone.Model``` (они не имеют различий с классическими «Моделями» MVC)  
+* Представления наилучшим образом представлены шаблонами (т.к. Handlebars/Mustache шаблоны)
 
-A response to this could be that the view can also just be a View (as per MVC) because Backbone is flexible enough to let it be used for multiple purposes. The V in MVC and the P in MVP can both be accomplished by ```Backbone.View``` because they're able to achieve two purposes: both rendering atomic components and assembling those components rendered by other views. 
+Ответом на этом может послужить то, что представления могут быть просто Представлениями (как в MVC) потому что Backbone достаточно гибкий, чтобы использовать их для различных целей. V в MVC и P в MVP оба могут реализовываться ```Backbone.View``` он в состояний реализовать две эти сущности: могут создавать отдельные представления и объединять несколько представлений в одном.
 
-We've also seen that in Backbone the responsibility of a controller is shared with both the Backbone.View and Backbone.Router and in the following example we can actually see that aspects of that are certainly true. 
-
-Here, our Backbone ```PhotoView``` uses the Observer pattern to 'subscribe' to changes to a View's model in the line ```this.model.bind('change',...)```. It also handles templating in the ```render()``` method, but unlike some other implementations, user interaction is also handled in the View (see ```events```).
+Мы также видели, что в Backbone обязанности контроллеров разделены между Backbone.View и Backbone.Router и в следующем примере мы может убедится что это действительно так.
+ 
+Наш Backbone ```PhotoView``` шаблон Наблюдателя чтобы 'подписаться' на изменения в Модели данного Представления  ```this.model.bind('change',...)```. Тут также обрабатываются шаблоны методом ```render()```, но, в отличии от некоторых других реализации, взаимодействия с пользователем также обрабатываются в Представлении (см. ```events```).
 
 
 ```javascript
 var PhotoView = Backbone.View.extend({
 
-    //... is a list tag.
+    //... тег списка.
     tagName:  "li",
 
-    // Pass the contents of the photo template through a templating
-    // function, cache it for a single photo
+    //Пропускаем содержимое шаблона photo-template через функцию 
+    // шаблонизатора, кэширующего его для одной фотографии.
     template: _.template($('#photo-template').html()),
 
-    // The DOM events specific to an item.
+    // Определяем специфичные для Представления события DOM
     events: {
       "click img" : "toggleViewed"
     },
 
-    // The PhotoView listens for changes to its model, re-rendering. Since there's
-    // a one-to-one correspondence between a **Photo** and a **PhotoView** in this
-    // app, we set a direct reference on the model for convenience.
+    // PhotoView слушает изменения и перерисовывается (пр. перев. re-rendering).
+    // Поскольку в этом приложений выполнено однозначное соответствие между **Photo** 
+    // и **PhotoView**, мы используем прямые ссылки на модели для удобства.	
 
     initialize: function() {
       _.bindAll(this, 'render');
@@ -440,13 +440,13 @@ var PhotoView = Backbone.View.extend({
       this.model.bind('destroy', this.remove);
     },
 
-    // Re-render the photo entry
+    // Перерисовать элемент photo 
     render: function() {
       $(this.el).html(this.template(this.model.toJSON()));
       return this;
     },
 
-    // Toggle the `"viewed"` state of the model.
+    // Переключение состояния `"viewed"` у модели.
     toggleViewed: function() {
       this.model.viewed();
     }
@@ -455,21 +455,20 @@ var PhotoView = Backbone.View.extend({
 ```
 
 
-Another (quite different) opinion is that Backbone more closely resembles [Smalltalk-80 MVC](http://martinfowler.com/eaaDev/uiArchs.html#ModelViewController), which we went through earlier.
+Другое, (полностью отличающееся) мнение состоит в том, что у Backbone больше сходства с [Smalltalk-80 MVC](http://martinfowler.com/eaaDev/uiArchs.html#ModelViewController), который мы рассматривали ранее.
 
-As regular Backbone user Derick Bailey has [written](http://lostechies.com/derickbailey/2011/12/23/backbone-js-is-not-an-mvc-framework/), it's ultimately best not to force Backbone to fit any specific design patterns. Design patterns should be considered flexible guides to how applications may be structured and in this respect, Backbone doesn't fit either MVC nor MVP perfectly. Instead, it borrows some of the best concepts from multiple architectural patterns and creates a flexible framework that just works well. Call it **the Backbone way**, MV* or whatever helps reference its flavor of application architecture. 
+Активный пользователь Backbone Derick Bailey [написал](http://lostechies.com/derickbailey/2011/12/23/backbone-js-is-not-an-mvc-framework/), что лучше всего не приписывать Backbone каких-либо специфичных шаблонов разработки. Дизайн шаблонов проектирования должен обладать гибкостью относительно структурирования приложения, и в соответствии с этим Backbone не имеет четкого соответствия с MVC или MVP. Вместо этого он заимствует лучшие концепции из различных архитектурных шаблонов и создает гибкую структуру, которая просто хорошо работает. Назовем это **Путь Backbone **, MV* или подобным образом, что лучше отразит особенности архитектуры приложения. 
  
-It *is* however worth understanding where and why these concepts originated, so I hope that my explanations of MVC and MVP have been of help. Most structural JavaScript frameworks will adopt their own take on classical patterns, either intentionally or by accident, but the important thing is that they help us develop applications which are organized, clean and can be easily maintained.
+*Но*, стоит понимать, где и почему возникли эти понятия, и я надеюсь, что мои объяснения MVC и MVP помогут вам в этом. Различные JavaScript Фреймворков будут иметь в своей основе различные классические шаблоны, намеренно или случайно, но главное в том, что они позволяют нам разрабатывать структурированные, простые в поддержке приложения с чистым и читаемым кодом. 
 
-
-##Fast facts
+##Краткие итоги
 
 ###Backbone.js
 
-* Core components: Model, View, Collection, Router. Enforces its own flavor of MV*
-* Good documentation, with more improvements on the way
-* Used by large companies such as SoundCloud and Foursquare to build non-trivial applications
-* Event-driven communication between views and models. As we'll see, it's relatively straight-forward to add event listeners to any attribute in a model, giving developers fine-grained control over what changes in the view
+* Основные составляющие компоненты: Модель, Представление, Коллекция, Маршрутизатор. Собственный стиль MV*
+* Хорошая и постоянно улучшаемая документация  
+* Используется большими компаниями, такими как SoundCloud и Foursquare, для создания нетривиальных приложений.
+* Событийно-ориентированные взаимодействия между представлениями и моделями. Как будет видно позднее, это позволяет напрямую добавлять слушателей событий к любым атрибутам модели, что дает разработчикам возможность детального контроля над изменениями в представлениях.
 * Supports data bindings through manual events or a separate Key-value observing (KVO) library
 * Great support for RESTful interfaces out of the box, so models can be easily tied to a backend
 * Extensive eventing system. It's [trivial](http://lostechies.com/derickbailey/2011/07/19/references-routing-and-the-event-aggregator-coordinating-views-in-backbone-js/) to add support for pub/sub in Backbone
