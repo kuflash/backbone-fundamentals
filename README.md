@@ -710,12 +710,12 @@ myPhoto.set({ title: "On the beach" });
 
 ###<a name="views">Представления</a>
 
-Views in Backbone don't contain the markup for your application, but rather they are there to support models by defining the logic for how they should be represented to the user. This is usually achieved using JavaScript templating (e.g. Mustache, jQuery-tmpl, etc.). A view's `render()` function can be bound to a model's `change()` event, allowing the view to always be up to date without requiring a full page refresh.
-   
+Представления в Backbone не содержат разметку для вашего приложения, они в первую очередь содержат логику того, как модель будет показана пользователю. Это, как правило, достигается использованием JavaScript шаблонизаторов (Mustache, jQuery-tmpl и т.д.). Функция `render()` в представлении может быть привязана к событию модели `change()`, это позволит представлению быть всегда обновленным, без необходимости перезагрузки всей страницы.
 
-####Creating new views
 
-Similar to the previous sections, creating a new view is relatively straight-forward. To create a new View, simply extend `Backbone.View`. I'll explain this code in detail below:
+####Создание нового представления
+
+Как и в предыдущем разделе, создание представлений относительно прямолинейно. Чтобы создать новое Представление нужно просто расширить `Backbone.View`. Подробнее я рассмотрю этот код ниже:
 
 ```javascript
 var PhotoSearch = Backbone.View.extend({
@@ -723,7 +723,7 @@ var PhotoSearch = Backbone.View.extend({
     render: function( event ){
         var compiled_template = _.template( $("#results-template").html() );
         this.el.html( compiled_template(this.model.toJSON()) );
-        return this; //recommended as this enables calls to be chained.
+        return this; // рекомендуется для поддержки цепочки вызовов.
     },
     events: {
         "submit #searchForm":  "search",
@@ -731,64 +731,63 @@ var PhotoSearch = Backbone.View.extend({
         "click .advanced": "switchContext"
     },
     search: function( event ){
-        //executed when a form '#searchForm' has been submitted
+        //выполняется при отправке формы '#searchForm'.
     },
     reset: function( event ){
-        //executed when an element with class "reset" has been clicked.
+        //выполняется при клике на элемент с классом "reset".
     },
     switchContext: function( event ){
-        //executed when an element with class "advanced" has been clicked.
+        // выполняется при клике на элемент с классом "advanced".
     }
 });
 ```
 
-####What is `el`?
+####Что такое `el`?
 
-`el` is basically a reference to a DOM element and all views must have one. It allows for all of the contents of a view to be inserted into the DOM at once, which makes for faster rendering as browser performs the minimum required reflows and repaints.
+`el` как правило, это ссылка на DOM элемент, и все представления должны иметь ее. Она нужна, чтобы вставлять все содержимое представления в определенном узле DOM на страницы, это делает более быстрым рендеринг страницы и позволяет минимизировать перерисовки выполняемые барузером.
 
-There are two ways to attach a DOM element to a view: the element already exists in the page or a new element is created for the view and added manually by the developer.
-If the element already exists in the page, you can set `el` as either a CSS selector that matches the element or a simple reference to the DOM element.
+Есть два способа добавлять DOM элементы представлений: либо элемент уже существуют на странице, либо это вновь созданный элемент для представления добавленный разработчиком.
+Если элемент уже существует, вы можете назначить `el` либо CSS селектор, ссылающийся на этот элемент, либо прямую ссылку на DOM элемент.
 
 ```javascript
 el: '#footer', 
-// OR
+// ИЛИ
 el: document.getElementById( 'footer' )
 ```
-
-If you want to create a new element for you view, set any combination of the following view's properties: `tagName`, `id` and `className`. A new element will be created for you by the framework and a reference to it will be available at the `el` property.
+Если вы хотите создать новый элемент для представления, установите в любой комбинации следующие свойства представления: `tagName`, `id` и `className`. Новый элемент будет создан для вас Фреймворком и ссылка на этот элемент будет доступна через свойство `el`.
 
 ```javascript
-tagName: 'p', // required, but defaults to 'div' if not set
-className: 'container', // optional, you can assign multiple classes to this property like so 'container homepage'
-id: 'header', // optional
+tagName: 'p', //обязательно, если не устанавливается, то по умолчанию будет 'div' 
+className: 'container', //опционально, вы можете назначить несколько классов разделяя их пробелом 'container homepage'
+id: 'header', //опционально
 ```
 
-The above code creates the ```DOMElement``` below but doesn't append it to the DOM.
+Код, размещенный выше, создает ```DOMElement```, показанный ниже, но не добавляет его к DOM страницы.
 
 ```html
 <p id="header" class="container"></p>
 ```
 
 
-**Understanding `render()`**
+**Понимание `render()`**
 
-`render()` is an optional function that defines the logic for rendering a template. We'll use Underscore's micro-templating in these examples, but remember you can use other templating frameworks if you prefer.   
+Не обязательная функция `render()` определяет логику рендеринга шаблона. Здесь мы будем использовать микро-шаблонизатор Underscore для примеров, но знайте, вы можете использовать любой другой шаблонизатор, который вы предпочитаете. 
 
-The `_.template` method in Underscore compiles JavaScript templates into functions which can be evaluated for rendering. In the above view, I'm passing the markup from a template with id `results-template` to `_.template()` to be compiled. Next, I set the html of the `el` DOM element to the output of processing a JSON version of the model associated with the view through the compiled template.
+Метод `_.template` в Underscore компилирует JavaScript шаблон в функцию, которая может быть вызвана для рендеринга. В представлении, рассмотренном выше, я передаю шаблон с  id `results-template` в `_.template()` для его компиляции. Затем DOM элементу `el` в его html метод (пр. перевод.: предоставленный jQuery) я передаю скомпилированную функцию, которая в качестве параметров получает JSON версию связанной с представлением модели.
 
 
-Presto! This populates the template, giving you a data-complete set of markup in just a few short lines of code.
+Presto! Шаблон заполняется данными модели, и на выходе вы получаете готовый html всего парой строк кода.
+ 
+**Атрибут `events` **
 
-**The `events` attribute**
+Атрибут Backbone `events` позволяет добавлять слушателей событий различным селекторам либо напрямую к `el`, если селекторов нет. Привязка имеет следующую форму `{"имяСобытия селектор": "реагирующаяФункция"}` (пр. перевод.: возможно, это не удачный перевод `{"eventName selector": "callbackFunction"}`) и поддерживает различные типы событий, включая  `click`, `submit`, `mouseover`, `dblclick` и т.д. 
 
-The Backbone `events` attribute allows us to attach event listeners to either custom selectors, or directly to `el` if no selector is provided. An event takes the form `{"eventName selector": "callbackFunction"}` and a number of event-types are supported, including `click`, `submit`, `mouseover`, `dblclick` and more.
-
-What isn't instantly obvious is that under the bonnet, Backbone uses jQuery's `.delegate()` to provide instant support for event delegation but goes a little further, extending it so that `this` always refers to the current view object. The only thing to really keep in mind is that any string callback supplied to the events attribute must have a corresponding function with the same name within the scope of your view.
+Это не очевидно, но под капотом Backbone использует jQuery метод `.delegate()`, чтобы обеспечить оперативное делегирование событий, при этом немного расширяя этот метод, для того чтобы `this` всегда указывал на текущий объект представления. Единственное, что надо запомнит это то, что каждая строка описывающая привязку события должна иметь свою собственную реагирующую функцию доступную в области видимости данного представления. 
  
 
-###<a name="collections">Collections</a>
+###<a name="collections">Коллекции</a>
 
-Collections are sets of Models and are created by extending `Backbone.Collection`.
+Коллекции представляет собой набор Моделей и создается расширением `Backbone.Collection`.
 
 Normally, when creating a collection you'll also want to pass through a property specifying the model that your collection will contain, as well as any instance properties required.
   
