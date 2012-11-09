@@ -789,10 +789,10 @@ Presto! Шаблон заполняется данными модели, и на
 
 Коллекции представляет собой набор Моделей и создается расширением `Backbone.Collection`.
 
-Normally, when creating a collection you'll also want to pass through a property specifying the model that your collection will contain, as well as any instance properties required.
-  
+Обычно, при создании коллекции одним из ее свойств указывают соответствующую модель, которые будет содержать эта коллекция, а также свойства, которые обязательны.
 
-In the following example, we create a PhotoCollection that will contain our Photo models:  
+
+В следующем примере мы создаем коллекцию PhotoCollection, которая будет содержать наши модели Photo:
 
 ```javascript
 var PhotoCollection = Backbone.Collection.extend({
@@ -800,23 +800,24 @@ var PhotoCollection = Backbone.Collection.extend({
 });
 ```
 
-**Getters and Setters**
+** Геттеры и Сеттеры (Getters and Setters)**
 
-There are a few different ways to retrieve a model from a collection. The most straight-forward is to use `Collection.get()` which accepts a single id as follows:
+Есть несколько различных способов получить модели из коллекции. Наиболее прямолинейный в использовании `Collection.get()` принимающий идентификатор (пр. перевод.: далее по тексту “id”) модели: 
 
 
 ```javascript
 var skiingEpicness = PhotoCollection.get(2);
 ```
 
-Sometimes you may also want to get a model based on its client id. The client id is a property that Backbone automatically assigns models that have not yet been saved. You can get a model's client id from its `.cid` property.
+Иногда может понадобиться получить модель по клиентскому id. Клиентский id – это свойство, которое Backbone автоматически присваивает модели, которая еще не была сохранена. Вы можете получить клиентский id модели из ее свойства `.cid`.
 
 
 ```javascript
 var mySkiingCrash = PhotoCollection.getByCid(456);
 ```
 
-Backbone Collections don't have setters as such, but do support adding new models via `.add()` and removing models via `.remove()`.
+Коллекции Backbone не имеют сеттеров, как таковых, но они поддерживают добавление моделей через `.add()` и их удаление через `.remove()`.
+
 
 ```javascript
 var a = new Backbone.Model({ title: 'my vacation'}),
@@ -826,9 +827,10 @@ var photoCollection = new PhotoCollection([a,b]);
 photoCollection.remove([a,b]);
 ```
 
-**Listening for events**
+**Слушание событий**
 
-As collections represent a group of items, we're also able to listen for `add` and `remove` events for when new models are added or removed from the collection. Here's an example:
+Так как коллекция представляет собой группу элементов, мы можем слушать события `add` и `remove` при добавлении и удалении моделей в коллекции. Вот пример: 
+
 
 ```javascript
 var PhotoCollection = new Backbone.Collection();
@@ -843,17 +845,17 @@ PhotoCollection.add([
 ]);
 ```
 
-In addition, we're able to bind a `change` event to listen for changes to models in the collection.
+Вдобавок к этому мы можем привязаться к событию модели `change`, чтобы реагировать на изменения моделей в коллекции.
 
 ```javascript
 PhotoCollection.bind("change:title", function(){
-    console.log('there have been updates made to this collections titles');    
+    console.log('произошли “title” свойств моделей в этой коллекции.');    
 });
 ```
 
-**Fetching models from the server**
+**Получение моделей с сервера**
 
-`Collections.fetch()` retrieves a default set of models from the server in the form of a JSON array. When this data returns, the current collection's contents will be replaced with the contents of the array.
+`Collections.fetch()` извлекает дефолтный набор моделей с сервера в формате JSON массива. По окончанию приема данных с сервера, текущее содержимое коллекции заменяется полученным массивом.
  
 
 ```javascript
@@ -862,30 +864,31 @@ PhotoCollection.url = '/photos';
 PhotoCollection.fetch();
 ```
 
-Under the covers, `Backbone.sync` is the function called every time Backbone tries to read or save models to the server. It uses jQuery or Zepto's ajax implementations to make these RESTful requests, however this can be overridden as per your needs.   
+За кулисами Backbone всегда вызывает функцию `Backbone.sync` при чтении или сохранении моделей на сервер. При этом используется jQuery или Zepto реализация Ajax для выполнения RESTful запроса, однако данное поведение может быть изменено по вашему желанию.
 
-In the above example if we wanted to log an event when `.sync()` was called, we could do this:
+Если вы хотите логировать каждый вызов `.sync()`  в примере выше, вы можете сделать следующее:
 
 ```javascript
 Backbone.sync = function(method, model) {
-  console.log("I've been passed " + method + " with " + JSON.stringify(model));
+  console.log("Передано методу " + method + " с " + JSON.stringify(model));
 };
 ```
 
-**Resetting/Refreshing Collections**
+**Сброс/Обновление Коллекции **
 
-Rather than adding or removing models individually, you might occasionally wish to update an entire collection at once. `Collection.reset()` allows us to replace an entire collection with new models as follows:   
-
+Вместо добавления или удаления моделей индивидуально, возможно вам понадобиться обновить всю коллекцию сразу. `Collection.reset()` позволяет заменить все модели коллекции как показано ниже:   
+	
 ```javascript
 PhotoCollection.reset([
   {title: "My trip to Scotland", src: "scotland-trip.jpg"},
   {title: "The flight from Scotland", src: "long-flight.jpg"},
-  {title: "Latest snap of lock-ness", src: "lockness.jpg"}]);
+  {title: "Latest snap of lock-ness", src: "lockness.jpg"}
+]);
 ```
 
-###Underscore utility functions
+###Вспомогательные функции Underscore 
 
-As Backbone requires Underscore as a hard dependency, we're able to use many of the utilities it has to offer to aid with our application development. Here's an example of how Underscore's `sortBy()` method can be used to sort a collection of photos based on a particular attribute.
+Так как Backbone зависит от Underscore (пр. перевод.: советую взглянуть на [Lo-Dash](https://github.com/bestiejs/lodash)), мы можем использовать множество полезных утилит, предлагаемых этой библиотекой. Ниже приведен пример того, как можно сортировать коллекцию моделей по определенному атрибуту модели, используя для этого метод Underscore `sortBy()`.
 
 ```javascript
 var sortedByAlphabet = PhotoCollection.sortBy(function (photo) {
@@ -893,9 +896,9 @@ var sortedByAlphabet = PhotoCollection.sortBy(function (photo) {
 });
 ```
 
-The complete list of what Underscore can do is beyond the scope of this guide, but can be found in its official [docs](http://documentcloud.github.com/underscore/).
+Полный список того, что может делать Underscore выходит за рамки данного руководства, вы можете прочитать об этом самостоятельно в [документации](http://underscorejs.ru/).
  
-###<a name="routers">Routers</a>
+###<a name="routers">Роутеры</a>
 
 In Backbone, routers are used to help manage application state and for connecting URLs to application events. This is achieved using hash-tags with URL fragments, or using the browser's pushState and History API. Some examples of routes may be seen below:
 
