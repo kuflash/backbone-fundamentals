@@ -849,7 +849,7 @@ PhotoCollection.add([
 
 ```javascript
 PhotoCollection.bind("change:title", function(){
-    console.log('произошли “title” свойств моделей в этой коллекции.');    
+    console.log('произошли изменения “title” свойств моделей в этой коллекции.');    
 });
 ```
 
@@ -898,61 +898,63 @@ var sortedByAlphabet = PhotoCollection.sortBy(function (photo) {
 
 Полный список того, что может делать Underscore выходит за рамки данного руководства, вы можете прочитать об этом самостоятельно в [документации](http://underscorejs.ru/).
  
-###<a name="routers">Роутеры</a>
+###<a name="routers">Маршрутизаторы</a>
 
-In Backbone, routers are used to help manage application state and for connecting URLs to application events. This is achieved using hash-tags with URL fragments, or using the browser's pushState and History API. Some examples of routes may be seen below:
+<i>Примечание переводчика: Здесь и далее по тексту английский слово Router переводится как Маршрутизатор, route как маршрут</i>
+
+Маршрутизаторы в Backbone призваны помочь в управлении состоянием приложения и привязать переходы по URL’ам к событиям приложения. Они активируют использование хэш-тегов с фрагментами URL, или используют pushState и History API браузера. Небольшой пример маршрутов приведен ниже:
 
 ```html
 http://unicorns.com/#whatsup
 http://unicorns.com/#search/seasonal-horns/page2
 ```
 
-Note: An application will usually have at least one route mapping a URL route to a function that determines what happens when a  user reaches that particular route. This relationship is defined as follows:    
+Примечание: В приложении, как правило, хотя бы один маршрутизатор является отображением URL’a на функцию, которая определяет реакцию приложения на переход пользователя по данному URL. Эта взаимосвязь определяется следующим образом:    
 
 ```javascript
 "route" : "mappedFunction"
 ```
 
-Let us now define our first controller by extending `Backbone.Router`. For the purposes of this guide, we're going to continue pretending we're creating a photo gallery application that requires a GalleryRouter.
+Давайте создадим наш первый контроллер расширением `Backbone.Router`. В рамках данного руководства мы будем продолжать создание нашего обучающего проекта фото галереи, для которой нам необходим GalleryRouter.
 
-Note the inline comments in the code example below as they continue the rest of the lesson on routers.
+Обратите внимание на комментарии в коде ниже, потому что в них содержится следующая часть данного урока.
 
 ```javascript
 var GalleryRouter = Backbone.Router.extend({
-    /* define the route and function maps for this router */
+    /* Определяем маршруты и привязанные к ним функции */
     routes: {
         "about" : "showAbout",
-        /*Sample usage: http://unicorns.com/#about*/
+        /* Пример использования: http://unicorns.com/#about */
         
         "photos/:id" : "getPhoto",
-        /*This is an example of using a ":param" variable which allows us to match 
-        any of the components between two URL slashes*/
-        /*Sample usage: http://unicorns.com/#photos/5*/
+        /* Пример использования переменной ":параметр", которая будет 
+           соответствовать определенному компоненту между парой слешей URL. */
+        /* Пример использования: http://unicorns.com/#photos/5 */
         
         "search/:query" : "searchPhotos"
-        /*We can also define multiple routes that are bound to the same map function,
-        in this case searchPhotos(). Note below how we're optionally passing in a 
-        reference to a page number if one is supplied*/
-        /*Sample usage: http://unicorns.com/#search/lolcats*/
+        /* Также можно привязывать множество маршрутов к одной и той же функции,
+           в данном случае к searchPhotos(). */
+        /* Пример использования: http://unicorns.com/#search/lolcats */
          
         "search/:query/p:page" : "searchPhotos",
-        /*As we can see, URLs may contain as many ":param"s as we wish*/
-        /*Sample usage: http://unicorns.com/#search/lolcats/p1*/
+        /* Функция получит необязательный номер страницы, если он был передан.
+           Как видите, URL’ы могут содержать много ":параметр"ов, столько сколько нам нужно. */
+        /* Пример использования: http://unicorns.com/#search/lolcats/p1 */
         
         "photos/:id/download/*imagePath" : "downloadPhoto",
-        /*This is an example of using a *splat. splats are able to match any number of 
-        URL components and can be combined with ":param"s*/
-        /*Sample usage: http://unicorns.com/#photos/5/download/files/lolcat-car.jpg*/
+        /* В этом примере используется знак *, он позволяет ":параметр"у соответствовать 
+           любому количеству компонентов URL. */
+        /* Пример использования: http://unicorns.com/#photos/5/download/files/lolcat-car.jpg*/
         
-        /*If you wish to use splats for anything beyond default routing, it's probably a good 
-        idea to leave them at the end of a URL otherwise you may need to apply regular
-        expression parsing on your fragment*/
+        /* Если вы хотите использовать знак * для маршрутизации по умолчанию, уместно
+           будет помещать этот параметр в конце, иначе вам придется применять
+           к полученному фрагменту регулярные выражения */ 
          
         "*other"    : "defaultRoute"
-        /*This is a default route that also uses a *splat. Consider the
-        default route a wildcard for URLs that are either not matched or where
-        the user has incorrectly typed in a route path manually*/
-        /*Sample usage: http://unicorns.com/#anything*/
+        /* Этот маршрут по умолчанию также использует знак *. Этот шаблон маршрута
+           по умолчанию для всех URL’ов, которые либо не обрабатываются маршрутизаторами выше,
+           либо для ошибочного ввода от пользователя. */
+        /* Пример использования: http://unicorns.com/#anything */
  
     },
     
