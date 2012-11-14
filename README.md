@@ -991,36 +991,36 @@ var myGalleryRouter = new GalleryRouter();
 
 ####Backbone.history
 
-Next, we need to initialize `Backbone.history` as it handles `hashchange` events in our application. This will automatically handle routes that have been defined and trigger callbacks when they've been accessed.
+Следующим шагом нам надо инициализировать `Backbone.history` для обработки `hashchange` (пр. перевод.: для обработки смены хэша в строке навигации) в нашем приложении. Это позволит автоматически обрабатывать маршруты, определенные в  нашем приложении и вызывать их функции (callbacks) когда маршрут был посещен.
 
-The `Backbone.history.start()` method will simply tell Backbone that it's OK to begin monitoring all `hashchange` events as follows:
+Метод `Backbone.history.start()` просто сообщает Backbone, что можно начинать мониторить все `hashchange` события: 
 
 ```javascript
 Backbone.history.start();
 Router.navigate();
 ```
 
-As an aside, if you would like to save application state to the URL at a particular point you can use the `.navigate()` method to achieve this. It simply updates your URL fragment without the need to trigger the `hashchange` event:
+Если вы хотите сохранять состояние URL приложения в определенный момент, вы можете использовать для этого метод `.navigate()`. Фрагмент URL будет обновляться без необходимости вызова события `hashchange`:
    
 
 ```javascript
-/*Lets imagine we would like a specific fragment for when a user zooms into a photo*/
+/* Допустим, мы хотим иметь конкретный фрагмент в URL, когда пользователь изменяет масштаб фотографии. */
 zoomPhoto: function(factor){
-    this.zoom(factor); //imagine this zooms into the image
-    this.navigate("zoom/" + factor); //updates the fragment for us, but doesn't trigger the route
+    this.zoom(factor); //представим, что тут увеличивается изображение	
+    this.navigate("zoom/" + factor); // обновит для нас фрагмент URL, но не вызывает маршрут. 
 }
 ```
 
-It is also possible for `Router.navigate()` to trigger the route as well as updating the URL fragment.
+Также `Router.navigate()` может вызывать маршрут, при обновлении фрагмета URL.
 
 ```javascript
 zoomPhoto: function(factor){
-    this.zoom(factor); //imagine this zooms into the image
-    this.navigate("zoom/" + factor, true); //updates the fragment for us and triggers the route
+    this.zoom(factor); //представим, что тут увеличивается изображение 
+    this.navigate("zoom/" + factor, true); // обновит для нас фрагмент URL, и вызовет маршрут. 
 }
 ```
 
-###<a name="namespacing">Namespacing</a>
+###<a name="namespacing">Пространства имен</a>
 
 When learning how to use Backbone, an important and commonly overlooked area by tutorials is namespacing. If you already have experience with namespacing in JavaScript, the following section will provide some advice on how to specifically apply concepts you know to Backbone, however I will also be covering explanations for beginners to ensure everyone is on the same page.
 
