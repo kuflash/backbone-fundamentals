@@ -1022,23 +1022,24 @@ zoomPhoto: function(factor){
 
 ###<a name="namespacing">Пространства имен</a>
 
-When learning how to use Backbone, an important and commonly overlooked area by tutorials is namespacing. If you already have experience with namespacing in JavaScript, the following section will provide some advice on how to specifically apply concepts you know to Backbone, however I will also be covering explanations for beginners to ensure everyone is on the same page.
+При изучении Backbone важным понятием является пространство имен, однако, многие руководства забывают об этом. Если вы имеете практический опыт в области пространства имен JavaScript, то следующая секция добавит несколько полезных советов о том, как применить эти знания к специфике Backbone.  Так же в этой секции я буду объяснять это понятие и для новичков. 
 
-####What is namespacing?
 
-The basic idea around namespacing is to avoid collisions with other objects or variables in the global namespace. They're important as it's best to safeguard your code from breaking in the event of another script on the page using the same variable names as you are. As a good 'citizen' of the global namespace, it's also imperative that you do your best to similarly not prevent other developer's scripts executing due to the same issues.
+####В чем смысл пространства имен?
 
-JavaScript doesn't really have built-in support for namespaces like other languages, however it does have closures which can be used to achieve a similar effect.
+Основная идея пространства имен в том, чтобы избежать коллизии имен переменных и объектов в глобальном пространстве имен. Это важно, и является наилучшей защитой от поломки вашего кода, при появлении на странице других скриптов, с такими же именами переменных, как и в вашем коде. И как хороший 'житель' глобального пространства имен, важно, чтобы вы делали максимум для предотвращения поломки скриптов других разработчиков. 
 
-In this section we'll be taking a look shortly at some examples of how you can namespace your models, views, routers and other components specifically. The patterns we'll be examining are:
+JavaScript не имеет встроенной поддержки пространства имен, как в других языках, зато имеет замыкания, которые помогут нам достичь схожего эффекта. 
 
-* Single global variables
-* Object Literals
-* Nested namespacing
+В этой секции мы рассмотрим короткие примеры организации пространства имен ваших моделей, представлений, маршрутизаторов и других компонентов. Шаблоны, которые мы рассмотрим:
 
-**Single global variables**
+* Единственная глобальная переменная 
+* Литералы объектов 
+* Вложенные пространства имен 
 
-One popular pattern for namespacing in JavaScript is opting for a single global variable as your primary object of reference. A skeleton implementation of this where we return an object with functions and properties can be found below:
+** Единственная глобальная переменная **
+
+Один из популярных шаблонов пространства имен в JavaScript - это единственная глобальная переменная, как объект доступа к переменным. Далее скелет реализации, в котором мы возвращаем объект с функциями и свойствами:
 
 ```javascript
 var myApplication = (function(){
@@ -1051,7 +1052,7 @@ var myApplication = (function(){
 })();
 ```
 
-You've probably seen this technique before. A Backbone-specific example might look like this:
+Вы могли видеть эту технику раньше. Пример с Backbone:
 
 ```javascript
 var myViews = (function(){
@@ -1059,26 +1060,25 @@ var myViews = (function(){
         PhotoView: Backbone.View.extend({ .. }),
         GalleryView: Backbone.View.extend({ .. }),
         AboutView: Backbone.View.extend({ .. });
-        //etc.
+        //и т.д.
     };
 })();
 ```
+Здесь мы возвращаем набор представлений, но этот же метод можно использовать для всей коллекции моделей, представлений и маршрутизаторов, в зависимости от структуры вашего приложения. Это работает для определенных ситуаций, но самая большая проблема с шаблоном одной глобальной переменной заключена в том, чтобы никто кроме вас не использовал имя этой глобальной переменной в пределах данной страницы.
 
-Here we can return a set of views, but the same technique could return an entire collection of models, views and routers depending on how you decide to structure your application. Although this works for certain situations, the biggest challenge with the single global variable pattern is ensuring that no one else has used the same global variable name as you have in the page.
-
-One solution to this problem, as mentioned by Peter Michaux, is to use prefix namespacing. It's a simple concept at heart, but the idea is you select a common prefix name (in this example, `myApplication_`) and then define any methods, variables or other objects after the prefix.
+Одно из решений данной проблемы, предложенное Peter Michaux, это использовать префиксы пространства имен. В основе своей идея очень простая, использовать общие префиксы имен (в данном примере `myApplication_`), и после них указывать любые названия методов, переменных и других объектов.
 
 ```javascript
 var myApplication_photoView = Backbone.View.extend({}),
 myApplication_galleryView = Backbone.View.extend({});
 ```
 
-This is effective from the perspective of trying to lower the chances of a particular variable existing in the global scope, but remember that a uniquely named object can have the same effect. This aside, the biggest issue with the pattern is that it can result in a large number of global objects once your application starts to grow.
+Это эффективно, потому что вероятность существования идентичных имен в глобальном пространстве будет очень мала, но помните, объекты с уникальными именами дают тот же эффект. Недостатком этого шаблона является вероятность получить огромное количество глобальных объектов в результате роста вашего приложения. 
 
-For more on Peter's views about the single global variable pattern, read his [excellent post on them](http://michaux.ca/articles/javascript-namespacing).
+Больше информации о том, как Peter представляет себе шаблоне единственной глобальной переменной, читайте в его [прекрасной статье на эту тему](http://michaux.ca/articles/javascript-namespacing).
 
-Note: There are several other variations on the single global variable pattern out in the wild, however having reviewed quite a few, I felt the prefixing approach applied best to Backbone. 
-
+Примечание: В дикой природе есть множество реализаций шаблона единственной глобальной переменной, но испробовав множество из них, я чувствую, что для Backbone лучше всего подходи использование глобального префикса.
+ 
 **Object Literals**
 
 Object Literals have the advantage of not polluting the global namespace but assist in organizing code and parameters logically. They're beneficial if you wish to create easily readable structures that can be expanded to support deep nesting. Unlike simple global variables, Object Literals often also take into account tests for the existence of a variable by the same name, which helps reduce the chances of collision. 
