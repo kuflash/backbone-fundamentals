@@ -963,31 +963,31 @@ var GalleryRouter = Backbone.Router.extend({
     
     getPhoto: function(id){
         /* 
-        Note that the id matched in the above route will be passed to this function
+        Обратите внимание, что id параметр, совпавший в маршруте передается в функцию.
         */
-        console.log("You are trying to reach photo " + id);
+        console.log("Вы пытаетесь получить фото " + id);
     },
     
     searchPhotos: function(query, page){
-        console.log("Page number: " + page + " of the results for " + query);
+        console.log("Страница номер " + page + " результатов для " + query);
     },
     
     downloadPhoto: function(id, path){
     },
     
     defaultRoute: function(other){
-        console.log("Invalid. You attempted to reach:" + other);
+        console.log("Ошибка. Попытка получить:" + other);
     }
 });
  
-/* Now that we have a router setup, remember to instantiate it*/
+/* Когда Маршрутизатор готов, не забудьте создать его экземпляр. */
  
 var myGalleryRouter = new GalleryRouter();
 ```
 
 
-As of Backbone 0.5+, it's possible to opt-in for HTML5 pushState support via `window.history.pushState`. This permits you to define routes such as http://www.scriptjunkie.com/just/an/example. This will be supported with automatic degradation when a user's browser doesn't support pushState. For the purposes of this tutorial, we'll use the hashtag method.
- 
+С версии Backbone 0.5+ появилась поддержка pushState из HTML5 через `window.history.pushState`. Это позволяет вам создавать маршруты на подобии этого http://www.scriptjunkie.com/just/an/example. В браузерах не поддерживающих pushState будет наблюдаться падение производительности. В рамках этого руководства мы будем использовать метод использующий хэш-теги.
+
 
 ####Backbone.history
 
