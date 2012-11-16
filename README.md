@@ -26,10 +26,10 @@
     * [Пространства имен](#namespacing)
     * [Дополнительные советы](#additional-tips)
 
-* ####[Advanced](#advanced)
-    * [Building RESTful applications with Backbone](#restful)
-    * Stack 1: Using Node.js, Express, Mongoose and MongoDB
-    * [Modular JavaScript](#modularjs)
+* ####[ Расширенная часть](#advanced)
+    * [Создание RESTful приложений с Backbone](#restful)
+    * [Набор 1: Используем Node.js, Express, Mongoose и MongoDB](#stack1)
+    * [Модульный JavaScript](#modularjs)
     * Organizing modules with RequireJS and AMD
     * Keeping your templates external with the RequireJS text plugin
     * Optimizing Backbone apps for production with the RequireJS Optimizer
@@ -1191,62 +1191,64 @@ galleryApp.model.special.Admin = Backbone.Model.extend({});
 
 Он очень хорошо работает с Backbone, Underscore, jQuery, и CoffeeScript, и даже используется такими компаниями как Red Bull и Jim Bean. Возможно, вам придется обновить некоторые зависимости (новейшую версию jQuery или Zepto) при использовании этого инструмента, в остальном он достаточно стабилен, чтобы использовать его прямо из коробки. 
 
-Brunch можно получить просто установив его через менеджер пакетов nodejs. Если ваш любимый редактор это Vim или Textmate, вы будете приятно удивлены тем, что для них доступен плагин Brunch. 
+Brunch можно получить, просто установив его через менеджер пакетов nodejs. Если ваш любимый редактор это Vim или Textmate, вы будете приятно удивлены тем, что для них доступен плагин Brunch. 
 
-####Есть ли ограничение на количество маршрутизаторов, которые я могу использовать? 
+####Есть ли ограничение на количество маршрутизаторов? 
 
-Andrew de Andrade отметил, что DocumentCloud для большинства своих проектов обычно использует только один маршрутизатор. Вам скорее всего не потребуется в ваших приложениях использовать больше одного, двух маршрутизаторов, все маршруты могут быть аккуратно организованны в одном контроллере. 
+Andrew de Andrade отметил, что DocumentCloud для большинства своих проектов обычно использует только один маршрутизатор. Вам, скорее всего не потребуется в ваших приложениях использовать больше одного, двух маршрутизаторов, все маршруты могут быть аккуратно организованны в одном контроллере. 
 
-####Is Backbone too small for my application's needs?
+####Backbone мало для вашего приложения?
 
-If you find yourself unsure of whether or not your application is too large to use Backbone, I recommend reading my post on building large-scale jQuery & JavaScript applications or reviewing my slides on client-side MVC architecture options. In both, I cover alternative solutions and my thoughts on the suitability of current MVC solutions for scaled application development.
+Если вы не уверены, действительно ли ваше приложение слишком сложное для использования Backbone, я рекомендую прочитать мою статью о создании больших и масштабируемых приложений на jQuery и JavaScript, или посмотреть мои слайды о вариантах клиентской MVC архитектуры. В обоих вариантах я рассматриваю альтернативные решения, и излагаю свои мысли о пригодности текущего MVC решения для разработки масштабируемых приложений. 
 
-Backbone can be used for building both trivial and complex applications as demonstrated by the many examples Ashkenas has been referencing in the Backbone documentation. As with any MVC framework however, it's important to dedicate time towards planning out what models and views your application really needs. Diving straight into development without doing this can result in either spaghetti code or a large refactor later on and it's best to avoid this where possible. 
+Backbone можно использовать для создания как простых, так и сложных приложений, это демонстрирует большое количество примеров Ashkenas, приведенных в Backbone документации. Как и в любом другом MVC Фреймворке, важно уделить время планированию, какие именно модели и представления вам реально необходимы. Погружение в разработку без выполнения этих шагов может привести к спагетти коду, или к полному рефакторингу в будущем, лучше избегать этих последствий везде, где это возможно.
 
-At the end of the day, the key to building large applications is not to build large applications in the first place. If you however find Backbone doesn't cut it for your requirements I strongly recommend checking out JavaScriptMVC or SproutCore as these both offer a little more than Backbone out of the box. Dojo and Dojo Mobile may also be of interest as these have also been used to build significantly complex apps by other developers.
-
-
-##<a name="advanced">Advanced</a>
-
-##<a name="restful">Building RESTful applications with Backbone</a>
-
-In this section of the book, we're going to take a look at developing RESTful applications using Backbone.js and modern technology stacks. When the data for your back-end is exposed through a purely RESTful API, tasks such as retrieving (GET), creating (POST), updating (PUT) and deleting (DELETE) models are made easy through Backbone's Model API. This API is so intuitive in fact that switching from storing records in a local data-store (e.g localStorage) to a database/noSQL data-store is a lot simpler than you may think.
+В конце концов, ключ к созданию больших приложений, стараться изначально не строить больших приложений. Если вы обнаружите, что Backbone все-таки вам не вписывается в ваши требования, я в первую очередь рекомендую посмотреть на  JavaScriptMVC или SproutCore, они оба умеют из коробки немного больше, чем Backbone. Dojo и Dojo Mobile также представлять интерес, так как они использовались некоторыми разработчиками для создания достаточно сложных приложений. 
 
 
-##Stack 1: Using Node.js, Express, Mongoose and MongoDB
+##<a name="advanced">Расширенная часть</a>
 
-The first stack we'll be looking at is:
+##<a name="restful">Создание RESTful приложений с Backbone</a>
+
+В этой части книги мы переходим к созданию RESTful приложения с использованием Backbone.js и набора современных технологий. Когда взаимодействие с бэк-эндом выполнено на чистом RESTful API, такие операции как получение (GET), создание (POST), обновление (PUT) и удаление (DELETE) моделей выполняются через API Моделей Backbone. Эти API интуитивно понятны, поэтому, реальное изменения хранилища данных с локального (к примеру, localStorage) на базу данных/noSQL хранилище намного проще, чем вы могли подумать.
+
+
+##<a name="stack1">Набор 1: Используем Node.js, Express, Mongoose и MongoDB</a>
+
+В первом наборе мы будем рассматривать:
 
 * [Node.js](nodejs.org)
 * [Express](http://expressjs.com/)
 * [Mongoose](http://mongoosejs.com/)
-* and [MongoDB](http://www.mongodb.org/)
+* и [MongoDB](http://www.mongodb.org/)
 
-with [Jade](http://jade-lang.com/) used optionally as a view/templating engine.
+c [Jade](http://jade-lang.com/) опционально, как движок шаблонизатора (view/templating engine).
 
-###Reviewing the stack
+<i>пр. перевод.: советую заглянуть [сюда](http://jsman.ru/)</i>
+	
+###Обзор набора
 
-As you may know, node.js is an event-driven platform (built on the [V8](http://code.google.com/apis/v8/design.html) runtime), designed for writing fast, scalable network applications. It's reasonably lightweight, efficient and great for real-time applications that are data-intensive. 
+Не секрет, что node.js это событийно-ориентированная платформа (созданная с исползованием [V8](http://code.google.com/apis/v8/design.html)), разработанная для написания быстрых и расширяемых сетевых приложений. Она легкая, эффективная и отлично подходит для создания приложений реального времени, работающего с большими объемами данных.
 
-Express is a small web-development framework written with node.js, based on [Sinatra](http://www.sinatrarb.com/). It supports a number of useful features such as intuitive views, robust routing and a focus on high performance.
+Express это веб-фреймворк для node.js, вдохновленный [Sinatra](http://www.sinatrarb.com/). Он включает множество полезных возможностей, таких как интуитивные представления, надежную маршрутизацию и фокусируется на производительности.
+	
+Следующие по списку MongoDB и Mongoose. MongoDB - документо-ориентированная база данных с открытым исходным кодом, разработанная быть расширяемой и гибкой. В [noSQL](http://ru.wikipedia.org/wiki/NoSQL) базах дынных, вместо того чтобы сохранять информацию в таблицы и строки (то, что мы очень привыкли делать в реляционных базах данных), в Mongo для ее хранения мы будем использовать JSON-подобные документы с использованием динамических схем. Одна из целей Mongo в том, чтобы преодолеть разрыв между хранилищами типа ключ-значение (скорость, масштабируемость) и реляционными базами данных (богатый функционал). 
 
-Next on the list are MongoDB and Mongoose. MongoDB is an open-source, document-oriented database store designed with scalability and agility in mind. As a [noSQL](http://en.wikipedia.org/wiki/NoSQL) database, rather than storing data in tables and rows (something we're very used to doing with relational databases), with MongoDB we instead store JSON-like documents using dynamic schemas. One of the goals of Mongo is to try bridging the gap between key-value stores (speed, scalability) and [relational](http://en.wikipedia.org/wiki/Relational_database) databases (rich functionality).
+Mongoose - это JavaScript библиотека упрощающая работу с Mongo. Подобно Express, она разрабатывалась для работы в окружении node.js и пытается решить некоторые сложности, связанные с асинхронным сохранением данных, предлагая более удобное API. В нее добавлена поддержка цепочной функциональности <i>(пр. превод.: chaining features)</i>, позволяющей более выразительно работать с нашими данными. 
 
-Mongoose is a JavaScript library that simplifies how we interact with Mongo. Like Express, it's designed to work within the node.js environment and tries to solve some of the complexities with asynchronous data storage by offering a more user-friendly API. It also adds chaining features into the mix, allowing for a slightly more expressive way of dealing with our data.
-
-Jade is a template engine influenced by Haml (which we'll be looking at later). It's implemented with JavaScript (and also runs under node). In addition to supporting Express out of the box, it boasts a number of useful features including support for mixins, includes, caching, template inheritance and much more. Whilst abstractions like Jade certainly aren't for everyone, our practical will cover working both with and without it.
+Jade – это шаблонизатор, созданный под впечатлением от Haml (которые мы будем рассматривать позже). Он реализован с использованием JavaScript (также работает с node). Дополнительно поддерживается Express из коробки и имеет ряд полезного функционала, включая поддержку примесей, включений, кэширования, наследования шаблонов и еще много чего. Такие абстракции как Jade не будут использоваться на протяжении всей нашей практики, мы рассмотрим работу, как с ними, так и без них. 
 
 
-###Practical
+###Практика
 
-For this practical, we're going to once again look at extending the popular Backbone Todo application. Rather than relying on localStorage for data persistence, we're going to switch to storing Todos in a MongoDB document-store instead. The code for this practical can be found at: https://github.com/addyosmani/backbone-boilerplates/tree/master/option2
+Для этой практической работы мы в очередной раз займемся улучшением популярного Backbone приложения Todo. Мы изменим это приложение таким образом, чтобы оно сохраняло список дел не в localStorage, а в документо-ориентированном хранилище MongoDB. Код этой практической работы можно посмотреть по следующей ссылке: https://github.com/addyosmani/backbone-boilerplates/tree/master/option2
 
 
 **app.js**
 
-(See [here](https://github.com/addyosmani/backbone-boilerplates/blob/master/option2/app.js) for the source)
+([Исходный код](https://github.com/addyosmani/backbone-boilerplates/blob/master/option2/app.js))
 
-We must first include the node dependencies required by our application. These are Express, Mongoose and Path (a module containing utilities for dealing with file paths.
+Первым делом надо подключить необходимые нашему приложению зависимости. Это Express, Mongoose и Path (модуль, содержащий утилиты для работы с путями файловой системы)
 
 ```javascript
 var application_root = __dirname,
@@ -1255,7 +1257,7 @@ var application_root = __dirname,
   mongoose = require('mongoose');
 ```
 
-Next, create a new Express server. `express.createServer()` is a simple way of creating an instance of express.HTTPServer, which we'll be using to pass in our routes.
+Далее создаем экземпляр сервера Express `express.createServer, это простой способ создания экземпляра express.HTTPServer, который мы будем использовать для передачи наших маршрутов. <i>пр. переводчика: для express версии 3.0 устарело</i>
 
 ```javascript
 var app = express.createServer();
