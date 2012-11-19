@@ -1241,7 +1241,7 @@ Jade – это шаблонизатор, созданный под впечат
 
 ###Практика
 
-Для этой практической работы мы в очередной раз займемся улучшением популярного Backbone приложения Todo. Мы изменим это приложение таким образом, чтобы оно сохраняло список дел не в localStorage, а в документо-ориентированном хранилище MongoDB. Код этой практической работы можно посмотреть по следующей ссылке: https://github.com/addyosmani/backbone-boilerplates/tree/master/option2
+Для этой практической работы мы в очередной раз займемся улучшением популярного Backbone приложения Todo (Список Дел). Мы изменим это приложение таким образом, чтобы оно сохраняло список дел не в localStorage, а в документо-ориентированном хранилище MongoDB. Код этой практической работы можно посмотреть по следующей ссылке: https://github.com/addyosmani/backbone-boilerplates/tree/master/option2
 
 
 **app.js**
@@ -1263,14 +1263,15 @@ var application_root = __dirname,
 var app = express.createServer();
 ```
 
-After this, connect Mongoose up to a database (in our case, localhost should suffice). Should you require the ability to pass in authentication information, here's a sample containing all of the supported URL parameters: `mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]`
+После этого получаем соединение с базой через Mongoose (в нашем случае localhost будет достаточно). Если вам нужно передать данные для аутентификации, вот пример URL содержащий все поддерживаемые параметры:
+`mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]`
 
 ```javascript
 mongoose.connect('mongodb://localhost/my_database');
 ```
 
-A Mongoose model for any Todo item can now be easily defined by passing a schema instance to `mongoose.model`. In our case the schema covers a Todo item's `text` content, its `done` state and `order` position in the overall Todo list.
-
+Модель Mongoose для каждой записи Todo можно легко определить, передав экземпляр схемы в `mongoose.model`. В нашем случае схема описывает в Todo записи содержимое `text`, состояние `done` и позицию `order` в общем списке Todo.
+	
 ```javascript
 var Todo = mongoose.model('Todo', new mongoose.Schema({
   text: String,
@@ -1279,11 +1280,11 @@ var Todo = mongoose.model('Todo', new mongoose.Schema({
 }));
 ```
 
-The `configure()` methods allows us to setup what we need for the current environment with our Express server. Note that lower down in the configuration are two view/view related lines. The last one explicitly sets the viewing/templating engine to be used as Jade `app.set('view engine', 'jade')`. We can avoid these if we wish to use plain HTML/JS for our templates instead.
+Метод `configure()` позволяет настроить необходимое окружение для нашего Express сервера. Обратите внимание, что две последние строки относятся к представлениям. Последняя строка явно устанавливает для представлений использование шаблонизатор Jade  `app.set('view engine', 'jade')`. Вы можете избежать этого, если хотите использовать для шаблонов простой HTML/JS.
 
 ```javascript
 app.configure(function(){
-  // the bodyParser middleware parses JSON request bodies
+  // bodyParser middleware преобразует в JSON тело запроса
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
@@ -1295,11 +1296,9 @@ app.configure(function(){
 
 ```
 
-Should you prefer to switch out Jade for an alternative view engine, this can be done fairly trivially. See the section under 'Templating' here:
-https://github.com/joyent/node/wiki/modules. For example, to switch to EJS, you would simply write `app.set('view engine', 'ejs')`
+Если вы предпочитает заменить Jade на другой шаблонизатор, то сделать это будет очень просто. Посмотрите секцию 'Templating' тут: https://github.com/joyent/node/wiki/modules. Для примера изменим шаблонизатор на EJS, для этого надо просто написать `app.set('view engine', 'ejs')`
 
-
-Express makes use of common HTTP verbs (get, put, post etc.) to provide easy to use, expressive routing API based on CRUD (Create, Read, Update and Delete). Below for example, we can define what happens when the browser requests the root '/'. As a trivial route in this application, it doesn't do anything particularly exciting, however getters typically read or retrieve data.
+Express реализует использование основных HTTP методов (get, put, post и т.д.) давая возможность использовать простые и выразительные API маршрутизации, основанные на CRUD (Create, Read, Update и Delete). В примере ниже мы можем определить, что делать, когда браузер запросит корневой маршрут '/'. Этот простой маршрут в нашем приложении ничего не делает, однако, геттер обычно читает или извлекает данные.  
 
 ```javascript
 app.get('/', function(req, res){
@@ -1307,56 +1306,57 @@ app.get('/', function(req, res){
 });
 ```
 
-Onto something a little more useful and in our next route, navigating to '/todo' will actually render our Jade view 'todo.jade', as seen in the callback. Additional configuration values can be passed as the second parameter, such as the custom title specified below.
+Немного полезнее наш следующий маршрут, запрос к '/todo' будет вызвать рендеринг нашего Jade представления 'todo.jade', это видно в переданной функции обратного вызова (callback). Дополнительные переменные, допустим заголовок определенный пользователем, можно передать вторым параметром:
 
 ```javascript
 app.get('/todo', function(req, res){
-  res.render('todo', {title: "Our sample application"});
+  res.render('todo', {title: "Наш пример приложения"});
 });
 ```
 
-Next, we can see the first of our '/api/' routes. 
+Далее мы видим на первый '/api/' маршрут.
 
 ```javascript
 app.get('/api/todos', function(req, res){
-  return Todo.find(function(err, todos) {
-    return res.send(todos);
+  Todo.find(function(err, todos) {
+    res.send(todos);
   });
 });
 ```
 
-The callback to our next route supports querying for todos based on a specific ID. The route string itself (once compiled) will be converted from '/api/todos/:id' to a regular expression. As you might have guessed, this is a hint that routes can also be regular expression literals if we wished to do something more complex.
+
+Callback в следующем маршруте обрабатывает запросы к определенному делу (todo) по его идентификатору. Строка маршрута (после компиляции) будет преобразована из '/api/todos/:id' в регулярное выражение. Как вы могли предположить, это намекает, что маршруты могут принимать регулярные выражения, если вам нужно сделать что-то более сложное.
 
 ```javascript
 app.get('/api/todos/:id', function(req, res){
-  return Todo.findById(req.params.id, function(err, todo) {
+  Todo.findById(req.params.id, function(err, todo) {
     if (!err) {
-      return res.send(todo);
+      res.send(todo);
     }
   });
 });
 ```
 
-Similarly, we want to support updating todos based on a specific ID as well. The following allows us to query a todo by ID and then update the values of it's three attributes (text, done, order) easily. 
+Также нам нужна возможность обновлять записи дела основываясь на их идентификаторах. В следующем примере кода мы выполняем запрос модели данных дела по его идентификатору, а затем обновляем значения его свойств (text, done, order).
 
 ```javascript
 app.put('/api/todos/:id', function(req, res){
-  return Todo.findById(req.params.id, function(err, todo) {
+  Todo.findById(req.params.id, function(err, todo) {
     todo.text = req.body.text;
     todo.done = req.body.done;
     todo.order = req.body.order;
-    return todo.save(function(err) {
+    todo.save(function(err) {
       if (!err) {
-        console.log("updated");
+        console.log("Обновлено");
       }
-      return res.send(todo);
+      res.send(todo);
     });
   });
 });
 ```
 
-We've so far covered requesting todos and updating them, but a core part of the application requires us to insert (or add) new todos to our data-store. Below we can create new <code>Todo</code> models and simply save them.
-
+Пока что мы рассматривали получение и обновление дел, но ключевая часть нашего приложения во вставке (или добавлении) новых дел, в наше хранилище данных. Далее мы можем создать новую модель <code>Todo</code> и просто сохранить ее.
+	
 ```javascript
 app.post('/api/todos', function(req, res){
   var todo;
@@ -1367,35 +1367,36 @@ app.post('/api/todos', function(req, res){
   });
   todo.save(function(err) {
     if (!err) {
-      return console.log("created");
+      console.log("Создано");
     }
   });
-  return res.send(todo);
+  res.send(todo);
 });
 ```
 
+Нам также необходима возможность удалять записи дел (к примеру, если запись 'очищена', она должна быть удалена). Это тоже работает на основе ИД записи дела.
 We of course also want to support deleting todos (e.g if a todo has been 'cleared', it should be deleted). This also works based on a specific todo ID.
 
 ```javascript
 app.delete('/api/todos/:id', function(req, res){
-  return Todo.findById(req.params.id, function(err, todo) {
-    return todo.remove(function(err) {
+  Todo.findById(req.params.id, function(err, todo) {
+    todo.remove(function(err) {
       if (!err) {
-        console.log("removed");
-        return res.send('')
+        console.log("Удалено");
+        res.send('')
       }
     });
   });
 });
 ```
 
-Finally, this last line is to ensure we're only listening on the port app.js is running.
+И, наконец, последняя строка описывает, что наше приложение в запущенном состоянии будет прослушивать порт 3000.
 
 ```javascript
 app.listen(3000);
 ```
 
-**script.js - updating our Backbone.js app**
+**script.js – обновление нашего Backbone.js приложения**
 
 In the `/public/js` folder of options 1 (HTML templates) and 2 (Jade) for the practical, you'll find a version of the Backbone Todo app originally by Jerome Gravel-Niquet. Let's pay attention to [script.js](https://github.com/addyosmani/backbone-boilerplates/blob/master/option2/public/js/script.js). In order to change the application to work with our new back-end, we'll need to make some very minor changes to this.
 
