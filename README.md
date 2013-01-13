@@ -1137,7 +1137,7 @@ var myConfig = {
 }
 ```
 
-Заметьте, на самом деле совсем немного синтаксических различий между шаблоном Объектного Литерала и стандартом хранения данных JSON. Если по каким либо причинам вы хотите использовать JSON для сохранения конфигурации (например для простоты хранения при отправке бэк-энду), не стесняйтесь.
+Заметьте, на самом деле совсем немного синтаксических различий между шаблоном Объектного Литерала и стандартом хранения данных JSON. Если по каким либо причинам вы хотите использовать JSON для сохранения конфигурации (например для простоты хранения при отправке бэкэнду), не стесняйтесь.
 <i>пр. перевод.: Объектный литерал (Object Literal), сам по себе не является шаблоном, это синтаксическая конструкция языка программирования</i>
 
 Больше о шаблоне Объектного Литерала, рекомендую почитать [прекрасную статью](http://blog.rebeccamurphey.com/2009/10/15/using-objects-to-organize-your-code) Rebecca Murphey на эту тему.
@@ -1210,7 +1210,7 @@ Backbone можно использовать для создания как пр
 
 ##<a name="restful">Создание RESTful приложений с Backbone</a>
 
-В этой части книги мы переходим к созданию RESTful приложения с использованием Backbone.js и набора современных технологий. Когда взаимодействие с бэк-эндом выполнено на чистом RESTful API, такие операции как получение (GET), создание (POST), обновление (PUT) и удаление (DELETE) моделей выполняются через API Моделей Backbone. Эти API интуитивно понятны, поэтому, реальное изменения хранилища данных с локального (к примеру, localStorage) на базу данных/noSQL хранилище намного проще, чем вы могли подумать.
+В этой части книги мы переходим к созданию RESTful приложения с использованием Backbone.js и набора современных технологий. Когда взаимодействие с бэкэндом выполнено на чистом RESTful API, такие операции как получение (GET), создание (POST), обновление (PUT) и удаление (DELETE) моделей выполняются через API Моделей Backbone. Эти API интуитивно понятны, поэтому, реальное изменения хранилища данных с локального (к примеру, localStorage) на базу данных/noSQL хранилище намного проще, чем вы могли подумать.
 
 
 ##<a name="stack1">Набор 1: Используем Node.js, Express, Mongoose и MongoDB</a>
@@ -1398,30 +1398,29 @@ app.listen(3000);
 
 **script.js – обновление нашего Backbone.js приложения**
 
-In the `/public/js` folder of options 1 (HTML templates) and 2 (Jade) for the practical, you'll find a version of the Backbone Todo app originally by Jerome Gravel-Niquet. Let's pay attention to [script.js](https://github.com/addyosmani/backbone-boilerplates/blob/master/option2/public/js/script.js). In order to change the application to work with our new back-end, we'll need to make some very minor changes to this.
+Для практически в папке `/public/js` вы найдете два варианта приложения Todo, 1 (HTML шаблоны) и 2 (Jade), написанного Jerome Gravel-Niquet. Обратите внимание на [script.js](https://github.com/addyosmani/backbone-boilerplates/blob/master/option2/public/js/script.js). Нужны минимальные изменения, для того чтобы наше приложение заработало с новым бэкэндом.
 
-Reviewing `window.TodoList` (a Backbone Collection), you'll notice that it has a property called `localStorage`, which uses the Backbone [localStorage](https://github.com/jeromegn/Backbone.localStorage) adapter in order to facilitate storing data using the browser's localStorage features.
+Если посмотреть на `window.TodoList` (Backbone Коллекция), вы увидите, что она имеет свойство `localStorage`, которое использует Backbone [localStorage](https://github.com/jeromegn/Backbone.localStorage) адаптер для облегчения хранения данных используя функциональность браузеров под названием localStorage.
 
 ```javascript
 window.TodoList = Backbone.Collection.extend({
 
-    // Reference to this collection's model.
+    // Ссылка на модель этой коллекции.
     model: Todo,
 
-    // Save all of the todo items under the `"todos"` namespace.
-    // Typically, this should be a unique name within your application
+    // Сохраняем все записи todo в пространстве имен `"todos"`.
+    // Как правило, это уникальное имя в пределах вашего приложения.
     localStorage: new Store("todos"),
 ```
 
-In order to switch it over to our RESTful backend, we're going to make use of the `url` property or function on a collection to reference its location on the server. Models inside of a collection then use `url` to construct URLs of their own. As all of the CRUD for our RESTful API works on the base route '/api/todos', this is the value we set `url` to.
+Чтобы переключить приложение на использование нашего RESTful бэкэнда нужно создать `url` свойства или методы у коллекции, ссылающиеся на соответствующие URL адреса на сервере. Модели внутри коллекции будут использовать `url` для конструирования своих URL адресов. В соответствии с CRUD наше RESTful API работает основываясь на маршруте '/api/todos', это значение мы зададим `url` свойству.
 
 ```javascript
     // localStorage: new Store("todos"),
     url: '/api/todos',
 ```
 
-This is the only change necessary to our existing Backbone application in order to get things working. Pretty easy, right?
-
+Это единственное изменение, необходимое нашему Backbone приложению, для того чтобы оно заработало. Очень просто, не так ли?
 
 
 **todo.jade**
