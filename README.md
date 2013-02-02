@@ -1398,7 +1398,7 @@ app.listen(3000);
 
 **script.js – обновление нашего Backbone.js приложения**
 
-Для практически в папке `/public/js` вы найдете два варианта приложения Todo, 1 (HTML шаблоны) и 2 (Jade), написанного Jerome Gravel-Niquet. Обратите внимание на [script.js](https://github.com/addyosmani/backbone-boilerplates/blob/master/option2/public/js/script.js). Нужны минимальные изменения, для того чтобы наше приложение заработало с новым бэкэндом.
+Чтобы попрактиковаться, в папке `/public/js` вы найдете два варианта приложения Todo, 1 (HTML шаблоны) и 2 (Jade), написанного Jerome Gravel-Niquet. Обратите внимание на [script.js](https://github.com/addyosmani/backbone-boilerplates/blob/master/option2/public/js/script.js). Нужны минимальные изменения, для того чтобы наше приложение заработало с новым бэкэндом.
 
 Если посмотреть на `window.TodoList` (Backbone Коллекция), вы увидите, что она имеет свойство `localStorage`, которое использует Backbone [localStorage](https://github.com/jeromegn/Backbone.localStorage) адаптер для облегчения хранения данных используя функциональность браузеров под названием localStorage.
 
